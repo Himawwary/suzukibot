@@ -145,3 +145,21 @@ const serverStatsUrl="https://discord.com/api/v10/invites/3v3xc33aRj?with_counts
 
 
 
+
+<script>
+(()=>{
+  const api="https://suzuki-site-counter.alexmarqueslogin.workers.dev";
+  const visits=document.getElementById("page-visit-count");
+  const invites=document.getElementById("invite-click-count");
+  const labels=document.querySelectorAll(".invite-stat span");
+  if(!visits||!invites)return;
+  if(labels[0])labels[0].textContent="visitas ao site";
+  if(labels[1])labels[1].textContent="cliques no convite do bot";
+  const render=data=>{visits.textContent=Number(data.visits||0).toLocaleString("pt-BR");invites.textContent=Number(data.inviteClicks||0).toLocaleString("pt-BR")};
+  const stats=()=>fetch(api+"/api/stats",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error();return r.json()}).then(render);
+  const track=event=>fetch(api+"/api/track",{method:"POST",headers:{"Content-Type":"text/plain;charset=UTF-8"},body:JSON.stringify({event}),keepalive:true}).then(r=>{if(!r.ok)throw Error();return r.json()}).then(render);
+  let countVisit=true;try{countVisit=sessionStorage.getItem("suzukiVisitCounted")==null;if(countVisit)sessionStorage.setItem("suzukiVisitCounted","1")}catch{}
+  if(countVisit)track("visit").catch(stats);else stats().catch(()=>{visits.textContent="—";invites.textContent="—"});
+  document.querySelectorAll('a[href*="discord.com/oauth2/authorize?client_id=1553634818816741408"]').forEach(link=>link.addEventListener("click",()=>track("invite").catch(()=>{})));
+})();
+</script>
