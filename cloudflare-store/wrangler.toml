@@ -1,0 +1,11 @@
+name = "suzuki-store"
+main = "src/index.js"
+compatibility_date = "2026-10-10"
+workers_dev = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "suzuki-store"
+# Create the D1 database first, then replace this value with its database_id.
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+
