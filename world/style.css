@@ -57,3 +57,17 @@ body.game-focus .world-wrap,body.discord-activity.game-focus .world-wrap{height:
 .focus-menu button::before{content:'✦';display:inline-block;color:#d799b1;margin-right:7px;font-size:13px}.focus-expressions button::before{content:none}.focus-menu button.active::before{color:#c39b46}
 body.game-focus #scene-label{color:#71556a;background:#fff5df;border:1px solid #e7ca91}
 html[data-theme=dark] .focus-menu button:hover:not(:disabled),html[data-theme=dark] .focus-menu summary:hover{background:#68495f;color:#fff3ef}
+
+/* Fit tall activity windows with a dock instead of empty bands. */
+body.game-focus .focus-menu button,body.game-focus .focus-menu summary,body.game-focus .focus-menu select{background:#f9d7e5;color:#654658;border-color:#e5acc4;box-shadow:inset 0 1px #fff4f8}
+body.game-focus .focus-menu>button:nth-of-type(even),body.game-focus .focus-menu select{background:#d9edcc;color:#456042;border-color:#a9c99b}
+body.game-focus .focus-menu button.active{background:#c9e8ba;border-color:#87b778;color:#385735}
+body.game-focus .focus-menu button:hover:not(:disabled),body.game-focus .focus-menu summary:hover{background:#f1bcd2;color:#654658}
+body.game-focus .focus-menu>button:nth-of-type(even):hover:not(:disabled){background:#c2e1b0;color:#385735}
+@media(max-aspect-ratio:8/5){
+body.game-focus .play-stage,body.discord-activity.game-focus .play-stage{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);align-content:start;align-items:stretch;padding:8px;gap:8px}
+body.game-focus .world-wrap,body.discord-activity.game-focus .world-wrap{width:100%;height:auto;aspect-ratio:16/9;max-height:none;align-self:start}
+body.game-focus .focus-menu,body.discord-activity.game-focus .focus-menu{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-content:start;height:100%;min-height:0;padding:10px;gap:7px}
+body.game-focus .focus-menu>strong{display:none}.focus-menu select,.focus-menu details{grid-column:auto}.focus-menu button,.focus-menu select,.focus-menu summary{font-size:11px;min-height:39px;padding:8px 5px}.focus-menu details[open]{grid-row:span 3}
+}
+@media(max-width:600px) and (max-aspect-ratio:8/5){body.game-focus .focus-menu,body.discord-activity.game-focus .focus-menu{grid-template-columns:repeat(3,minmax(0,1fr));padding:8px}.focus-menu button,.focus-menu select,.focus-menu summary{font-size:10px}}
