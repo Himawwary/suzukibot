@@ -1,0 +1,32 @@
+(()=>{'use strict';
+const status=document.getElementById('badge-operation'),account=document.getElementById('badge-account')?.dataset.account;
+if(!status||!account)return;
+const key='suzukiBadgePending:'+account,buttons=[...document.querySelectorAll('[data-badge]')];let busy=false;
+function lock(){for(const button of buttons)button.disabled=true;}
+function finish(message){status.replaceChildren(document.createTextNode(message+' '));const link=document.createElement('a');link.href='/banco/perfil#emblemas';link.textContent='Atualizar meus emblemas';status.append(link);}
+async function monitor(id){
+ for(let i=0;i<45;i++){
+  const response=await fetch('/banco/api/result/'+encodeURIComponent(id),{cache:'no-store'}),value=await response.json();
+  if(!response.ok)throw Error(value.error||'Não consegui consultar o pedido.');
+  if(['done','failed','uncertain'].includes(value.status)){sessionStorage.removeItem(key);finish(value.result?.message||'Pedido registrado.');return;}
+  status.textContent='A Suzuki está confirmando seu pedido…';await new Promise(resolve=>setTimeout(resolve,2000));
+ }
+ status.textContent='Pedido guardado. Aguarde a Suzuki; não precisa comprar novamente.';
+}
+async function submit(operation){
+ lock();sessionStorage.setItem(key,JSON.stringify(operation));
+ try{
+  const response=await fetch('/banco/api/badges',{method:'POST',headers:{'content-type':'application/json','x-suzuki-bank-request':operation.id},body:JSON.stringify({kind:operation.kind,sku:operation.sku})}),value=await response.json();
+  if(!response.ok){if(response.status<500||response.status===503)sessionStorage.removeItem(key);finish(value.error||'Não foi possível registrar o pedido.');return;}
+  await monitor(value.id);
+ }catch(error){status.textContent=error.message+' Seu pedido foi preservado; atualize para consultar.';}
+}
+for(const button of buttons)button.addEventListener('click',()=>{
+ if(busy)return;const sku=button.dataset.badge,kind=button.dataset.action;
+ busy=true;submit({id:crypto.randomUUID(),kind,sku});
+});
+try{
+ const operation=JSON.parse(sessionStorage.getItem(key)||'null');
+ if(operation&&/^[0-9a-f-]{36}$/.test(operation.id)&&['badge_claim','badge_equip','badge_unequip'].includes(operation.kind)&&/^[a-z_]+$/.test(operation.sku)){busy=true;submit(operation);}
+}catch{sessionStorage.removeItem(key);}
+})();

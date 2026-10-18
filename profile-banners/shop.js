@@ -24,7 +24,7 @@ async function submit(operation){
 for(const button of buttons)button.addEventListener('click',()=>{
  if(busy)return;const sku=button.dataset.banner,kind=button.dataset.action;
  if(kind==='sticker_buy'&&!confirm('Comprar o adesivo por 100 Corações?'))return;
- if(kind==='banner_buy'&&!confirm('Comprar o banner por '+button.dataset.price+' sorvetes?'))return;
+ if(kind==='banner_buy'&&!confirm('Comprar o banner por '+button.dataset.price+' Notas musicais?'))return;
  busy=true;submit({id:crypto.randomUUID(),kind,sku});
 });
 try{
