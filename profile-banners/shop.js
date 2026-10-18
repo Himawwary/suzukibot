@@ -3,7 +3,7 @@ const status=document.getElementById('banner-operation'),account=document.getEle
 if(!status||!account)return;
 const key='suzukiBannerPending:'+account,buttons=[...document.querySelectorAll('[data-banner]')];let busy=false;
 function lock(){for(const button of buttons)button.disabled=true;}
-function finish(message){status.replaceChildren(document.createTextNode(message+' '));const link=document.createElement('a');link.href='/banco/banners';link.textContent='Atualizar meus banners';status.append(link);}
+function finish(message){status.replaceChildren(document.createTextNode(message+' '));const link=document.createElement('a');link.href='/banco/banners';link.textContent='Atualizar meu perfil';status.append(link);}
 async function monitor(id){
  for(let i=0;i<45;i++){
   const response=await fetch('/banco/api/result/'+encodeURIComponent(id),{cache:'no-store'}),value=await response.json();
@@ -23,11 +23,12 @@ async function submit(operation){
 }
 for(const button of buttons)button.addEventListener('click',()=>{
  if(busy)return;const sku=button.dataset.banner,kind=button.dataset.action;
+ if(kind==='sticker_buy'&&!confirm('Comprar o adesivo por 100 Corações?'))return;
  if(kind==='banner_buy'&&!confirm('Comprar o banner por '+button.dataset.price+' sorvetes?'))return;
  busy=true;submit({id:crypto.randomUUID(),kind,sku});
 });
 try{
  const operation=JSON.parse(sessionStorage.getItem(key)||'null');
- if(operation&&/^[0-9a-f-]{36}$/.test(operation.id)&&['banner_buy','banner_equip'].includes(operation.kind)&&/^[a-z]+$/.test(operation.sku)){busy=true;submit(operation);}
+ if(operation&&/^[0-9a-f-]{36}$/.test(operation.id)&&['banner_buy','banner_equip','sticker_buy','sticker_equip'].includes(operation.kind)&&/^[a-z_]+$/.test(operation.sku)){busy=true;submit(operation);}
 }catch{sessionStorage.removeItem(key);}
 })();
