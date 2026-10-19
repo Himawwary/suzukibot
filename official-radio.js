@@ -10,7 +10,7 @@
     const box=document.createElement('aside');
     box.id='suzuki-official-radio';box.hidden=true;
     box.setAttribute('aria-label','Rádio do servidor da Suzuki');
-    if(location.pathname.includes('/world/'))box.classList.add('sor-world');
+    if(activity||location.pathname.includes('/world/'))box.classList.add('sor-world');
     box.innerHTML=`<div class="sor-station"><span class="sor-live"></span> AO VIVO NA SUZUKI <span class="sor-note" aria-hidden="true">♪</span></div>
       <div class="sor-main"><div class="sor-speaker" aria-hidden="true"><span>✿</span></div><div class="sor-song"><strong></strong><small></small></div></div>
       <div class="sor-controls"><button type="button" aria-label="Ativar som da rádio">Ativar som</button><label>Volume <input type="range" min="0" max="100" value="60" aria-label="Volume da rádio"></label><div class="sor-waves" aria-hidden="true"><i></i><i></i><i></i><i></i></div></div>`;
