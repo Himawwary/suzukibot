@@ -1,0 +1,28 @@
+#suzuki-official-radio{position:fixed;right:18px;bottom:22px;z-index:9999;width:270px;padding:12px 13px 11px;border:3px solid #163d29;border-radius:23px;background:linear-gradient(150deg,#fff8dc 55%,#fff0f6);box-shadow:4px 5px 0 #163d29,0 10px 30px #173a2924;color:#163d29;font:700 13px/1.3 system-ui,sans-serif;text-align:left;box-sizing:border-box}
+#suzuki-official-radio[hidden]{display:none!important}
+#suzuki-official-radio *{box-sizing:border-box}
+#suzuki-official-radio .sor-station{display:flex;align-items:center;gap:6px;font-size:10px;letter-spacing:1px;font-weight:900}
+#suzuki-official-radio .sor-live{height:7px;width:7px;border-radius:50%;background:#f24a91;box-shadow:0 0 0 3px #ffd6e5}
+#suzuki-official-radio .sor-note{margin-left:auto;background:#cff078;border:2px solid #163d29;border-radius:9px;padding:0 7px;font-size:19px;line-height:22px;transform:rotate(8deg)}
+#suzuki-official-radio .sor-main{display:flex;align-items:center;gap:11px;margin:8px 0 11px}
+#suzuki-official-radio .sor-speaker{display:grid;place-items:center;flex:0 0 56px;height:56px;border:3px solid #163d29;border-radius:50%;background:repeating-radial-gradient(#214e37 0 2px,#326d46 2px 4px);box-shadow:0 0 0 4px #ffa6ca}
+#suzuki-official-radio .sor-speaker span{font-size:41px;line-height:1;color:#fff8dc;text-shadow:1px 2px #163d29}
+#suzuki-official-radio .sor-song{min-width:0;flex:1}
+#suzuki-official-radio strong{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:14px;font-weight:900;line-height:1.25}
+#suzuki-official-radio small{display:block;margin-top:4px;font-size:10px;opacity:.75;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+#suzuki-official-radio .sor-controls{display:flex;align-items:center;gap:9px}
+#suzuki-official-radio button{appearance:none;min-width:91px;border:2px solid #163d29;border-radius:11px;background:#f985b6;color:#163d29;padding:7px 9px;font:800 11px system-ui;cursor:pointer;box-shadow:0 2px #163d29}
+#suzuki-official-radio button:hover{background:#ffc2dc;transform:translateY(-1px)}
+#suzuki-official-radio button:focus-visible,#suzuki-official-radio input:focus-visible{outline:3px solid #ed4d94;outline-offset:3px}
+#suzuki-official-radio label{display:flex;flex-direction:column;gap:2px;flex:1;font-size:9px}
+#suzuki-official-radio input{width:100%;margin:0;accent-color:#e84d92;height:15px;padding:0;cursor:pointer}
+#suzuki-official-radio .sor-waves{display:flex;align-items:center;gap:2px;height:24px}
+#suzuki-official-radio .sor-waves i{width:3px;height:17px;border-radius:2px;background:#719c26;animation:sor-dance .65s ease-in-out infinite alternate}
+#suzuki-official-radio .sor-waves i:nth-child(2){animation-delay:-.3s;height:10px}
+#suzuki-official-radio .sor-waves i:nth-child(3){animation-delay:-.5s;height:22px}
+#suzuki-official-radio .sor-waves i:nth-child(4){animation-delay:-.2s;height:13px}
+#suzuki-official-radio.sor-silent .sor-waves i{animation-play-state:paused;opacity:.4}
+#suzuki-official-radio.sor-world{top:78px;bottom:auto;width:240px;right:12px}
+@keyframes sor-dance{to{transform:scaleY(.35)}}
+@media(max-width:600px){#suzuki-official-radio{right:10px;bottom:12px;width:240px;padding:9px 11px}#suzuki-official-radio.sor-world{top:65px;right:8px;width:210px}#suzuki-official-radio.sor-world .sor-speaker{flex-basis:44px;height:44px}#suzuki-official-radio.sor-world .sor-speaker span{font-size:32px}}
+@media(prefers-reduced-motion:reduce){#suzuki-official-radio .sor-waves i{animation:none}}
