@@ -6,12 +6,14 @@
  let select=document.getElementById('site-language');
  if(!select){select=document.createElement('select');select.id='site-language';select.className='suzuki-language-switch';select.setAttribute('aria-label','Idioma / Language');const header=document.querySelector('header')||document.body;header.append(select);const style=document.createElement('style');style.textContent='.suzuki-language-switch{font:700 14px system-ui,sans-serif;color:#315b40;background:#fffbe8;border:2px dashed #b1d78c;border-radius:16px;padding:10px 12px;max-width:160px;margin:6px;flex:0 1 auto}';document.head.append(style)}
  select.replaceChildren(...Object.entries(supported).map(([value,label])=>new Option(label,value)));select.value=language;
- const privateAreas='script,style,textarea,input,code,pre,#site-language,#guild-name,#guild option,.site-account-name,.community-message,.bank-message span,.user-directory-card strong,.user-directory-card h3,.server-directory-card strong,.server-directory-card h3,.staff-person strong,.record,#chat-log,[translate="no"],[data-no-translate]';
+ const privateAreas='script,style,textarea,input,code,pre,#site-language,#guild-name,#guild option,#bank-real-ranking,#bank-global-feed,#suzuki-track option,.site-account-name,.community-message,.bank-message span,.user-directory-card strong,.user-directory-card h3,.server-directory-card strong,.server-directory-card h3,.staff-person strong,.record,#chat-log,[translate="no"],[data-no-translate]';
  let fragments=null;
  function escape(value){return value.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
  function translate(source){
   if(typeof source!=='string'||language==='pt-BR'||!ready)return source;
-  const key=source.trim();if(/^(?:Suzuki(?: Bot)?|SuzukiPay|Miyu(?: Suzuki)?|suzu|suzukinha|Tani|Taira|Azuna|Azuma|Yamada|Nishi)[.!?\s]*$/i.test(key))return source;if(!key||!/[A-Za-zÀ-ÿ]/.test(key)||/^(?:R\$|\$|€)\s*[\d.,\s]+$/.test(key))return source;
+  const key=source.trim();if(/^(?:Suzuki(?: Bot)?|SuzukiPay|Miyu(?: Suzuki)?|suzu|suzukinha|Tani|Taira|Azuna|Azuma|Yamada|Nishi|Watanabe|Sato|Satou|Honda|Rihito)[.!?\s]*$/i.test(key))return source;if(!key||!/[A-Za-zÀ-ÿ]/.test(key)||/^(?:R\$|\$|€)\s*[\d.,\s]+$/.test(key))return source;
+  const parts=source.split(/(https?:\/\/[^\s<>]+|(?:\/|==)[\p{L}_][\p{L}\p{N}_-]*(?:[ \t]+(?:canal|voz))?)/giu);
+  if(parts.length>1)return parts.map((part,index)=>index%2?part:translate(part)).join('');
   const map=catalog[language]||{},exact=map[key];if(exact)return source.replace(key,exact);
   // Preserve dynamic numbers and account data while translating known UI fragments.
   if(!fragments){const keys=Object.keys(map).filter(k=>k.length>=3&&k.length<120&&!/[<>\n]/.test(k)&&map[k]!==k).sort((a,b)=>b.length-a.length);fragments=keys.length?new RegExp('(?<![\\p{L}\\p{N}_])(?:'+keys.map(escape).join('|')+')(?![\\p{L}\\p{N}_])','gu'):false}
