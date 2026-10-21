@@ -11,7 +11,7 @@
  function escape(value){return value.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
  function translate(source){
   if(typeof source!=='string'||language==='pt-BR'||!ready)return source;
-  const key=source.trim();if(!key||!/[A-Za-zÀ-ÿ]/.test(key)||/^(?:R\$|\$|€)\s*[\d.,\s]+$/.test(key))return source;
+  const key=source.trim();if(/^(?:Suzuki(?: Bot)?|SuzukiPay|Miyu(?: Suzuki)?|suzu|suzukinha|Tani|Taira|Azuna|Azuma|Yamada|Nishi)[.!?\s]*$/i.test(key))return source;if(!key||!/[A-Za-zÀ-ÿ]/.test(key)||/^(?:R\$|\$|€)\s*[\d.,\s]+$/.test(key))return source;
   const map=catalog[language]||{},exact=map[key];if(exact)return source.replace(key,exact);
   // Preserve dynamic numbers and account data while translating known UI fragments.
   if(!fragments){const keys=Object.keys(map).filter(k=>k.length>=3&&k.length<120&&!/[<>\n]/.test(k)&&map[k]!==k).sort((a,b)=>b.length-a.length);fragments=keys.length?new RegExp('(?<![\\p{L}\\p{N}_])(?:'+keys.map(escape).join('|')+')(?![\\p{L}\\p{N}_])','gu'):false}
