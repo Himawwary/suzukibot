@@ -1,6 +1,6 @@
 (()=>{'use strict';
  const supported={'pt-BR':'PT-BR',en:'English',es:'Español',ja:'日本語',de:'Deutsch',fr:'Français',ko:'한국어',tr:'Türkçe',id:'Bahasa Indonesia',hi:'हिन्दी'};
- const script=document.currentScript,base=new URL('.',script?.src||location.href),catalogUrl=new URL('site-languages.json?v=20261021',base);
+ const script=document.currentScript,base=new URL('.',script?.src||location.href);
  let language='pt-BR',catalog={},ready=false,scheduled=false,observer;const saved=new WeakMap(),pending=new Set();
  try{const cookie=location.origin==='https://suzuki-store.alexmarqueslogin.workers.dev'?document.cookie.match(/(?:^|;\s*)SuzukiUILanguage=([^;]+)/)?.[1]:null;const preferred=new URL(location.href).searchParams.get('lang')||cookie||localStorage.getItem('suzukiLanguage');if(preferred in supported)language=preferred}catch{}
  let select=document.getElementById('site-language');
@@ -41,7 +41,7 @@
  }
  function schedule(){if(!scheduled){scheduled=true;requestAnimationFrame(()=>apply(false))}}
  observer=new MutationObserver(records=>{for(const record of records){if(record.type==='childList'){for(const node of record.addedNodes)pending.add(node)}else pending.add(record.target)}schedule()});
- function choose(value,remember=true){if(!(value in supported))return;language=value;fragments=null;if(remember)try{localStorage.setItem('suzukiLanguage',value);if(location.origin==='https://suzuki-store.alexmarqueslogin.workers.dev')document.cookie='SuzukiUILanguage='+value+'; Path=/; Max-Age=31536000; SameSite=Lax; Secure'}catch{}apply();window.dispatchEvent(new CustomEvent('suzuki-language',{detail:{language:value}}))}
+ function choose(value,remember=true){if(!(value in supported))return;language=value;fragments=null;if(remember)try{localStorage.setItem('suzukiLanguage',value);if(location.origin==='https://suzuki-store.alexmarqueslogin.workers.dev')document.cookie='SuzukiUILanguage='+value+'; Path=/; Max-Age=31536000; SameSite=Lax; Secure'}catch{}apply();window.dispatchEvent(new CustomEvent('suzuki-language',{detail:{language:value}}));loadCatalog(value)}
  select.addEventListener('change',()=>choose(select.value));
  window.addEventListener('message',event=>{if(event.data?.type!=='suzuki-language'||!['https://himawwary.github.io','https://suzuki-store.alexmarqueslogin.workers.dev',location.origin].includes(event.origin))return;choose(event.data.language)});
  window.addEventListener('storage',event=>{if(event.key==='suzukiLanguage'&&event.newValue in supported)choose(event.newValue,false)});
@@ -50,5 +50,11 @@
  window.suzukiRawText=text=>({suzukiRawText:String(text)});
  if(window.CanvasRenderingContext2D){for(const method of ['fillText','strokeText']){const original=CanvasRenderingContext2D.prototype[method];CanvasRenderingContext2D.prototype[method]=function(text,...args){const value=text&&typeof text==='object'&&typeof text.suzukiRawText==='string'?text.suzukiRawText:translate(String(text));return Reflect.apply(original,this,[value,...args])}}}
  apply();
- fetch(catalogUrl,{credentials:'omit',cache:'no-cache'}).then(response=>{if(!response.ok)throw Error('Catálogo indisponível');return response.json()}).then(value=>{catalog=value;ready=true;apply();window.dispatchEvent(new CustomEvent('suzuki-i18n-ready',{detail:{language}}))}).catch(()=>{ready=false;apply()});
+ const loading=new Map();
+ function loadCatalog(code){
+  if(code==='pt-BR'||catalog[code])return;
+  if(loading.has(code))return loading.get(code);
+  const job=fetch(new URL('languages/'+code+'.json?v=20261021-complete',base),{credentials:'omit',cache:'no-cache'}).then(response=>{if(!response.ok)throw Error('Catálogo indisponível');return response.json()}).then(value=>{catalog[code]=value;ready=true;fragments=null;apply();window.dispatchEvent(new CustomEvent('suzuki-i18n-ready',{detail:{language:code}}))}).catch(()=>{apply()}).finally(()=>loading.delete(code));loading.set(code,job);return job;
+ }
+ loadCatalog(language);
 })();
