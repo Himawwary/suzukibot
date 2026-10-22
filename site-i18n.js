@@ -26,7 +26,7 @@
   if(value!==output){if(attribute)node.setAttribute(attribute,output);else node.nodeValue=output}entry.output=output;data[key]=entry;
  }
  function informChildren(){for(const iframe of document.querySelectorAll('iframe[src]')){try{const url=new URL(iframe.src,location.href);if(['https://himawwary.github.io','https://suzuki-store.alexmarqueslogin.workers.dev',location.origin].includes(url.origin))iframe.contentWindow?.postMessage({type:'suzuki-language',language},url.origin)}catch{}}}
- function text(node){if(node.parentElement&&!node.parentElement.closest(privateAreas))nodeText(node)}
+ function text(node){if(node.parentElement&&!node.parentElement.closest(privateAreas)&&!(document.getElementById('server-console')&&node.parentElement.closest('header span')))nodeText(node)}
  function attributes(element){
   if(element.tagName==='A'&&element.hasAttribute('href'))try{const url=new URL(element.getAttribute('href'),location.href);if(url.origin!==location.origin&&['https://himawwary.github.io','https://suzuki-store.alexmarqueslogin.workers.dev'].includes(url.origin)&&url.searchParams.get('lang')!==language){url.searchParams.set('lang',language);element.href=url.href}}catch{}
   if(element.closest('#site-language,[translate="no"],[data-no-translate]'))return;for(const key of ['aria-label','placeholder','alt','title'])if(element.hasAttribute(key))nodeText(element,key);
@@ -56,7 +56,9 @@
  function loadCatalog(code){
   if(code==='pt-BR'||catalog[code])return;
   if(loading.has(code))return loading.get(code);
-  const job=fetch(new URL('languages/'+code+'.json?v=20261021-complete',base),{credentials:'omit',cache:'no-cache'}).then(response=>{if(!response.ok)throw Error('Catálogo indisponível');return response.json()}).then(value=>{catalog[code]=value;ready=true;fragments=null;apply();window.dispatchEvent(new CustomEvent('suzuki-i18n-ready',{detail:{language:code}}))}).catch(()=>{apply()}).finally(()=>loading.delete(code));loading.set(code,job);return job;
+  const read=path=>fetch(new URL(path,base),{credentials:'omit',cache:'no-cache'}).then(response=>{if(!response.ok)throw Error('Catálogo indisponível');return response.json()});
+  const sources=[read('languages/'+code+'.json?v=20261021-complete')];if(document.getElementById('server-console'))sources.push(read('server-languages/'+code+'.json?v=roles-embeds-1').catch(()=>({})));
+  const job=Promise.all(sources).then(values=>Object.assign({},...values)).then(value=>{catalog[code]=value;ready=true;fragments=null;apply();window.dispatchEvent(new CustomEvent('suzuki-i18n-ready',{detail:{language:code}}))}).catch(()=>{apply()}).finally(()=>loading.delete(code));loading.set(code,job);return job;
  }
  loadCatalog(language);
 })();
