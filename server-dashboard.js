@@ -304,8 +304,8 @@ for(const b of document.querySelectorAll('[data-section]'))b.onclick=()=>{captur
  const create=(tag,text,cls)=>{const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e};
  const panel=create('section',undefined,'booster-panel');panel.hidden=true;host.querySelector('main').prepend(panel);
  const open=create('button','Painel Booster','secondary');open.type='button';document.querySelector('header').append(open);
- let state=null,working=false,chosen=null,previousHidden=false;
- function safeAvatar(value){try{const u=new URL(value);return u.protocol==='https:'&&u.hostname==='cdn.discordapp.com'&&/^\/(?:avatars|guilds|embed\/avatars)\//.test(u.pathname)?u.href:null}catch{return null}}
+ let state=null,working=false,chosen=null,previousHidden=false,catalog=null;
+ function merge(result){return {...result,models:catalog||result.models,supported:(result.models||[]).map(model=>model.id)}}
  async function request(action,model){
   const id=crypto.randomUUID(),payload={kind:'guild_action',guild:'1551797530830831707',action};if(model)payload.words=JSON.stringify({model});
   const response=await fetch('/servidores/api',{method:'POST',headers:{'Content-Type':'application/json','X-Suzuki-Bank-Request':id},body:JSON.stringify(payload)}),ack=await response.json();
@@ -317,27 +317,16 @@ for(const b of document.querySelectorAll('[data-section]'))b.onclick=()=>{captur
    if(j.status!=='queued')throw Error(j.result?.message||'Não foi possível abrir o painel.');
   }throw Error('A Suzuki ainda está processando. Atualize o painel para conferir o perfil ativo.');
  }
- function preview(model,profile){
-  const frame=create('div',undefined,'booster-card-preview');frame.dataset.model=model.id;frame.style.containerType='inline-size';
+ function preview(model){
+  const frame=create('div',undefined,'booster-card-preview');frame.dataset.model=model.id;frame.style.aspectRatio=(model.width||1536)+' / '+(model.height||1024);
   const art=create('img');art.src=base+encodeURIComponent(model.file);art.alt=model.title;frame.append(art);
-  function region(box,cls){const e=create('div',undefined,cls);e.style.left=box[0]/15.36+'%';e.style.top=box[1]/10.24+'%';e.style.width=(box[2]-box[0])/15.36+'%';e.style.height=(box[3]-box[1])/10.24+'%';frame.append(e);return e}
-  function portrait(box,url){const e=region(box,'booster-portrait');const good=safeAvatar(url);if(good){const img=create('img');img.src=good;img.alt='';img.referrerPolicy='no-referrer';e.append(img)}else e.append(create('span','●'));return e}
-  portrait(model.avatar,profile?.avatar);
-  const name=region(model.name,'booster-text booster-name');name.textContent=profile?.name||'Seu nome';name.translate=false;name.style.fontSize=Math.min(3.1,(model.name[2]-model.name[0])/15.36/(Math.max([...name.textContent].length,4)*.65))+'cqw';
-  const bio=region(model.bio,'booster-text booster-bio');bio.textContent=profile?.bio||'Ainda não escreveu uma bio.';bio.translate=!profile?.bio;
-  for(const [i,key,label]of [[0,'docinhos','Docinhos'],[1,'level','Nível'],[2,'coracoes','Carinhos']]){
-   const box=region(model.stats[i],'booster-text booster-stat');box.append(create('span',label),create('strong',profile?new Intl.NumberFormat(document.documentElement.lang||'pt-BR').format(profile[key]||0):'—'));
-  }
-  const relationship=region(model.relationship,'booster-text booster-relationship');
-  if(profile?.partner){const avatar=safeAvatar(profile.partner_avatar);if(avatar){const img=create('img');img.src=avatar;img.alt='';relationship.append(img)}relationship.append(create('span','Casado(a) com'),create('strong',profile.partner));relationship.lastChild.translate=false}
-  else relationship.append(create('span','Solteiro(a)'));
   return frame;
  }
  function render(message=''){
   panel.replaceChildren();const title=create('div',undefined,'booster-heading');title.append(create('p','SEU CANTINHO BOOSTER','eyebrow'),create('h1','Meu perfil Booster'),create('p','Escolha seu modelo. O avatar, a bio e o casamento vêm do seu perfil na Suzuki.'));
   const close=create('button','Voltar ao Meu servidor','secondary');close.type='button';close.onclick=()=>{panel.hidden=true;host.classList.remove('booster-open');const picker=document.querySelector('.server-picker');if(previousHidden||!host.querySelector('#settings')?.children.length){host.hidden=true;if(picker)picker.hidden=false}history.replaceState(null,'',location.pathname+location.search)};title.append(close);panel.append(title);
   const notice=create('p',message||(state?.active?'Seu boost está ativo no servidor oficial.':'Os modelos ficam guardados. Para ativar, mantenha um boost no servidor oficial da Suzuki.'),'booster-notice');notice.setAttribute('role','status');panel.append(notice);
-  const refresh=create('button','Verificar boost novamente','secondary');refresh.type='button';refresh.disabled=working;refresh.onclick=load;panel.append(refresh);
+  const refresh=create('button','Verificar boost novamente','secondary');refresh.type='button';refresh.disabled=working;refresh.onclick=load;panel.append(refresh,create('p','Prévia da arte original. Nomes, avatares, valores e estado civil nas imagens são exemplos.','help'));
   if(!state?.active){const link=create('a','Entrar no servidor da Suzuki','secondary');link.href='https://discord.gg/tzRKdQHxDZ';link.target='_blank';link.rel='noopener';panel.append(link)}
   if(!state)return;
   if(chosen){const model=state.models.find(x=>x.id===chosen);if(model){const focus=create('section',undefined,'booster-focus');focus.append(create('h2',model.title),preview(model,state.profile));panel.append(focus)}}
@@ -345,12 +334,16 @@ for(const b of document.querySelectorAll('[data-section]'))b.onclick=()=>{captur
   for(const model of state.models){
    const card=create('article',undefined,'booster-model');card.append(create('h2',model.title),preview(model,state.profile));
    if(state.selected===model.id)card.append(create('p',state.active?'Perfil ativo':'Modelo guardado','booster-selected'));
-   const see=create('button','Ampliar prévia','secondary');see.type='button';see.disabled=working;see.onclick=()=>{chosen=model.id;render();panel.querySelector('.booster-focus').scrollIntoView({behavior:'smooth',block:'start'})};
-   const activate=create('button','Ativar este perfil','primary');activate.type='button';activate.disabled=working||!state.active||state.selected===model.id;activate.onclick=async()=>{if(working)return;working=true;render('Ativando seu perfil…');try{state=await request('booster_profile_select',model.id);working=false;render(state.message)}catch(e){working=false;try{state=await request('booster_profile_read')}catch{}render(e.message)}};
+   const see=create('button','Ampliar prévia','secondary');see.type='button';see.onclick=()=>{chosen=model.id;render();panel.querySelector('.booster-focus').scrollIntoView({behavior:'smooth',block:'start'})};
+   const activate=create('button','Ativar este perfil','primary');activate.type='button';activate.disabled=working||!state.active||!state.supported?.includes(model.id)||state.selected===model.id;activate.onclick=async()=>{if(working)return;working=true;render('Ativando seu perfil…');try{state=merge(await request('booster_profile_select',model.id));working=false;render(state.message)}catch(e){working=false;try{state=merge(await request('booster_profile_read'))}catch{}render(e.message)}};
    card.append(see,activate);grid.append(card);
   }panel.append(grid,create('p','Se o boost terminar, o perfil especial é suspenso. Sua escolha e seus dados continuam guardados.','help'));
  }
- async function load(){if(working)return;working=true;render('Verificando seu boost…');try{state=await request('booster_profile_read');working=false;render()}catch(e){working=false;render(e.message)}}
+ async function load(){if(working)return;working=true;render('Verificando seu boost…');
+  try{const response=await fetch(base+'models.json',{cache:'no-store'});if(response.ok){const value=await response.json();if(Array.isArray(value.models))catalog=value.models}}catch{}
+  if(catalog&&!state){state={active:false,models:catalog,selected:null,supported:[]};render('Verificando seu boost…')}
+  try{state=merge(await request('booster_profile_read'));working=false;render()}catch(e){working=false;render(e.message)}
+ }
  open.onclick=()=>{if(panel.hidden)previousHidden=host.hidden;panel.hidden=false;host.hidden=false;host.classList.add('booster-open');history.replaceState(null,'','#booster');load()};
  if(location.hash==='#booster')open.click();
 })();
