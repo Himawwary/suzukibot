@@ -16,7 +16,7 @@ function showAccountAvatar(result){
  if(!accountName||!result.actor_avatar)return;let url;try{url=new URL(result.actor_avatar)}catch{return}
  if(url.protocol!=='https:'||url.hostname!=='cdn.discordapp.com'||!/^\/(?:avatars|embed\/avatars)\//.test(url.pathname))return;
  let img=accountName.querySelector('img');if(!img){img=node('img');img.alt='';img.className='account-avatar';img.referrerPolicy='no-referrer';img.onerror=()=>{img.hidden=true};accountName.prepend(img)}
- img.src=url.href;img.hidden=false;accountName.classList.add('account-identity');accountName.translate=false;
+ url.searchParams.set('size','128');img.src=url.href;img.hidden=false;accountName.classList.add('account-identity');accountName.translate=false;
 }
 
 function changed(value){dirty=value;$('savebar').hidden=!data||(!dirty&&specialSections.includes(section));save.disabled=!dirty||busy;discard.disabled=!dirty||busy;save.disabled=save.disabled||(data?.capabilities?.settings===false);$('savehint').textContent=dirty?'Você tem alterações para salvar.':'Tudo salvo por aqui.'}
@@ -281,9 +281,9 @@ function updateSetup(result){
  status.after(setupPanel);return true
 }
 async function refreshSetup(){
- if(!setupGuild||busy||setupChecking||document.hidden)return;setupChecking=true;
+ if(!setupGuild||busy||setupChecking||document.hidden)return;const checkedGuild=setupGuild.id;setupChecking=true;
  try{const id=crypto.randomUUID(),response=await fetch('/servidores/api',{method:'POST',headers:{'Content-Type':'application/json','X-Suzuki-Bank-Request':id},body:JSON.stringify({kind:'guild_action',guild:setupGuild.id,action:'setup_check'})});if(!response.ok)return;
-  for(let attempt=0;attempt<8;attempt++){const r=await fetch('/servidores/api/result/'+id,{cache:'no-store'}),value=await r.json();if(value.status==='done'){updateSetup(value.result);break}if(value.status!=='queued')break;await new Promise(resolve=>setTimeout(resolve,750))}
+  for(let attempt=0;attempt<8;attempt++){const r=await fetch('/servidores/api/result/'+id,{cache:'no-store'}),value=await r.json();if(value.status==='done'){if(setupGuild?.id===checkedGuild)updateSetup(value.result);break}if(value.status!=='queued')break;await new Promise(resolve=>setTimeout(resolve,750))}
  }catch{}finally{setupChecking=false}
 }
 setInterval(refreshSetup,20000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshSetup()});chooseServer.addEventListener('click',clearSetup);
