@@ -17,3 +17,9 @@ header{flex-wrap:wrap}.dashboard-back{display:inline-flex;align-items:center;gap
 .shell.booster-open{grid-template-columns:minmax(0,1fr);max-width:1450px}.booster-open aside{display:none}.booster-name{display:block;align-content:center;text-overflow:ellipsis}.booster-focus{max-width:1100px;margin-left:auto;margin-right:auto}
 .booster-relationship{flex-wrap:nowrap;font-size:1.35cqw;gap:.5cqw}.booster-relationship>img{width:3cqw;height:3cqw;flex-shrink:0}.booster-relationship>span{flex-shrink:0}.booster-relationship>strong{min-width:0;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
 .booster-card-preview .booster-text{background-image:none;background-color:color-mix(in srgb,var(--booster-tint) 12%,#fffdf5);box-shadow:none}.booster-card-preview .booster-text:after{display:none}
+
+
+.xp-reward-row{display:grid;grid-template-columns: minmax(110px,.6fr) minmax(180px,1.4fr) auto;gap:12px;align-items:end;padding:16px;margin:12px 0;border:2px solid #e1d7f5;border-radius:20px;background:#fffcf4}
+.xp-reward-row .field{margin:0}.xp-summary{margin-top:24px;background:linear-gradient(125deg,#fff4d2,#e7f4ff,#f4e8fc)}
+.xp-rewards>small{display:block;margin-top:12px}
+@media(max-width:650px){.xp-reward-row{grid-template-columns:1fr}.xp-reward-row button{width:100%}}
