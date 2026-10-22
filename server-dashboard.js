@@ -154,9 +154,9 @@ function renderMusicOptions(panel){
  const values=()=>({mode:mode.value,call:call.value,speech:speech.value==='true',speech_minutes:Number(minutes.value),on_join:join.value,track:track.value.trim(),playlist:playlist.value.trim(),voice_channel:voice.value||null,text_channel:text.value||null});
  f.oninput=()=>musicOptionDrafts.set(gid,values());call.onchange=update;
  submitTool(f,'Salvar comportamento da música',async()=>{if(await toolAction('music_options',{words:JSON.stringify(values())}))musicOptionDrafts.delete(gid)},capability('settings'));panel.append(f);
- const native={channel:'',voice:true,...data.music_channel,...musicChannelDrafts.get(gid)},channels=toolForm('Canal de música e comandos por voz','As mesmas opções do /musica: pedidos, controles, fila e cards da call no canal escolhido.');
+ const native={channel:'',voice:true,...data.music_channel,...musicChannelDrafts.get(gid)},channels=toolForm('Canal de música e comandos por voz','Diga Suzuki antes de pedir para tocar, pausar, pular ou voltar. Usa as mesmas configurações do comando no Discord.');
  const channel=toolChannel(channels,'channel','Canal de música',native.channel),recognition=inputField(channels,'voice','Reconhecer pedidos pela voz',{value:String(native.voice),choices:[['true','Ativado'],['false','Desativado']]});channel.required=true;
- channels.append(node('p','Diga Suzuki antes de pedir para tocar, pausar, pular ou voltar. Usa as mesmas configurações do comando no Discord.','help'));
+ channels.append(node('code','/musica'));
  const nativeValues=()=>({channel:channel.value,voice:recognition.value==='true'});channels.oninput=()=>musicChannelDrafts.set(gid,nativeValues());
  submitTool(channels,'Salvar canal e voz',async()=>{if(await toolAction('music_channel',{words:JSON.stringify(nativeValues())}))musicChannelDrafts.delete(gid)},capability('settings'));panel.append(channels)
 }
