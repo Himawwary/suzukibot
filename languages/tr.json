@@ -708,7 +708,7 @@
   "Consulte seus saldos no": "Kendi saldalarını inceleyin.",
   "Convite não encontrado.": "Bulunmamış bir davet.",
   "Copiar Pix copia e cola": "Pix kopyası ve cola kopyaları",
-  "Corações insuficientes.": "Yeterli kalpler yetersizdir.",
+  "Corações insuficientes.": "Yeterli Kalp yok.",
   "Escolha alguém da turma": "Bir gruptan birini seçin.",
   "Escolha um item válido.": "Geçerli bir öğe seçin.",
   "Ex.: 123456789012345678": "Örnek: 123456789012345675",
@@ -2147,5 +2147,15 @@
   "Efeito Corações Neon com centro transparente": "Ortası saydam Neon Kalpler efekti",
   "Para o card inteiro": "Kartın tamamı için",
   "Moldura do ícone": "Simge çerçevesi",
-  "Moldura do card": "Kart çerçevesi"
+  "Moldura do card": "Kart çerçevesi",
+  "Ativar": "Etkinleştir",
+  "Seus Corações": "Kalpleriniz",
+  "Aguarde a Suzuki carregar a atualização.": "Suzuki güncellemeyi yükleyene kadar bekleyin.",
+  "Escolha uma moldura para ativar no seu perfil.": "Profilinizde etkinleştirmek için bir çerçeve seçin.",
+  "Compra concluída! Agora você pode ativar.": "Satın alma tamamlandı! Şimdi etkinleştirebilirsiniz.",
+  "Moldura ativada. A anterior da mesma categoria foi desativada.": "Çerçeve etkinleştirildi. Aynı kategorideki önceki devre dışı bırakıldı.",
+  "Compre essa moldura antes de ativar.": "Etkinleştirmeden önce bu çerçeveyi satın alın.",
+  "A Suzuki está confirmando seu pedido…": "Suzuki siparişinizi onaylıyor…",
+  "Pedido guardado. Aguarde a Suzuki; não precisa comprar novamente.": "Sipariş kaydedildi. Suzuki’yi bekleyin; tekrar satın almayın.",
+  "Não foi possível consultar o pedido. Tente novamente.": "Sipariş kontrol edilemedi. Tekrar deneyin."
 }

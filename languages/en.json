@@ -863,7 +863,7 @@
   "Consulte seus saldos no": "Check your balance.",
   "Convite não encontrado.": "Untold invitation.",
   "Copiar Pix copia e cola": "Copy Pix and Cola",
-  "Corações insuficientes.": "Unfavourable heart.",
+  "Corações insuficientes.": "Not enough Hearts.",
   "Escolha alguém da turma": "Choose someone from the group.",
   "Escolha um item válido.": "Choose a valid item.",
   "Ex.: 123456789012345678": "The number of people in the world is 123456789012345675",
@@ -2147,5 +2147,15 @@
   "Efeito Corações Neon com centro transparente": "Neon Hearts effect with transparent center",
   "Para o card inteiro": "For the whole card",
   "Moldura do ícone": "Icon frame",
-  "Moldura do card": "Card frame"
+  "Moldura do card": "Card frame",
+  "Ativar": "Activate",
+  "Seus Corações": "Your Hearts",
+  "Aguarde a Suzuki carregar a atualização.": "Wait for Suzuki to load the update.",
+  "Escolha uma moldura para ativar no seu perfil.": "Choose a frame to activate on your profile.",
+  "Compra concluída! Agora você pode ativar.": "Purchase complete! You can now activate it.",
+  "Moldura ativada. A anterior da mesma categoria foi desativada.": "Frame activated. The previous one in this category was deactivated.",
+  "Compre essa moldura antes de ativar.": "Buy this frame before activating it.",
+  "A Suzuki está confirmando seu pedido…": "Suzuki is confirming your order…",
+  "Pedido guardado. Aguarde a Suzuki; não precisa comprar novamente.": "Order saved. Please wait for Suzuki; you do not need to buy again.",
+  "Não foi possível consultar o pedido. Tente novamente.": "Could not check the order. Try again."
 }

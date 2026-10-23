@@ -708,7 +708,7 @@
   "Consulte seus saldos no": "Perhatikan saldo Anda di",
   "Convite não encontrado.": "Panggilan yang tidak ditemukan.",
   "Copiar Pix copia e cola": "Menggunakan Pix Copy dan Cola",
-  "Corações insuficientes.": "Hati yang tidak mencukupi.",
+  "Corações insuficientes.": "Hati tidak cukup.",
   "Escolha alguém da turma": "Pilih salah satu dari kelompok",
   "Escolha um item válido.": "Pilih item yang valid.",
   "Ex.: 123456789012345678": "Contoh: 123456789012345675",
@@ -2147,5 +2147,15 @@
   "Efeito Corações Neon com centro transparente": "Efek Hati Neon dengan tengah transparan",
   "Para o card inteiro": "Untuk seluruh kartu",
   "Moldura do ícone": "Bingkai ikon",
-  "Moldura do card": "Bingkai kartu"
+  "Moldura do card": "Bingkai kartu",
+  "Ativar": "Aktifkan",
+  "Seus Corações": "Hati Anda",
+  "Aguarde a Suzuki carregar a atualização.": "Tunggu Suzuki memuat pembaruan.",
+  "Escolha uma moldura para ativar no seu perfil.": "Pilih bingkai untuk diaktifkan pada profil Anda.",
+  "Compra concluída! Agora você pode ativar.": "Pembelian selesai! Sekarang Anda bisa mengaktifkannya.",
+  "Moldura ativada. A anterior da mesma categoria foi desativada.": "Bingkai diaktifkan. Bingkai sebelumnya dalam kategori yang sama dinonaktifkan.",
+  "Compre essa moldura antes de ativar.": "Beli bingkai ini sebelum mengaktifkannya.",
+  "A Suzuki está confirmando seu pedido…": "Suzuki sedang mengonfirmasi pesanan…",
+  "Pedido guardado. Aguarde a Suzuki; não precisa comprar novamente.": "Pesanan disimpan. Tunggu Suzuki; tidak perlu membeli lagi.",
+  "Não foi possível consultar o pedido. Tente novamente.": "Pesanan tidak dapat diperiksa. Coba lagi."
 }

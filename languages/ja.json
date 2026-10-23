@@ -865,7 +865,7 @@
   "Consulte seus saldos no": "バランスを調べる",
   "Convite não encontrado.": "見つからなかった招待状。",
   "Copiar Pix copia e cola": "コピー・ピックス・コピーとコラ",
-  "Corações insuficientes.": "心の不十分さ。",
+  "Corações insuficientes.": "ハートが足りません。",
   "Escolha alguém da turma": "グループから選ぶ人。",
   "Escolha um item válido.": "適切な項目を選択します。",
   "Ex.: 123456789012345678": "例えば: 123456789012345675",
@@ -2147,5 +2147,15 @@
   "Efeito Corações Neon com centro transparente": "中央が透明なネオンハートエフェクト",
   "Para o card inteiro": "カード全体用",
   "Moldura do ícone": "アイコンフレーム",
-  "Moldura do card": "カードフレーム"
+  "Moldura do card": "カードフレーム",
+  "Ativar": "有効にする",
+  "Seus Corações": "あなたのハート",
+  "Aguarde a Suzuki carregar a atualização.": "Suzukiが更新を読み込むまでお待ちください。",
+  "Escolha uma moldura para ativar no seu perfil.": "プロフィールに使うフレームを選んでください。",
+  "Compra concluída! Agora você pode ativar.": "購入完了！有効にできます。",
+  "Moldura ativada. A anterior da mesma categoria foi desativada.": "フレームを有効にしました。同じ種類の以前のフレームは無効になりました。",
+  "Compre essa moldura antes de ativar.": "先にこのフレームを購入してください。",
+  "A Suzuki está confirmando seu pedido…": "Suzukiが注文を確認中…",
+  "Pedido guardado. Aguarde a Suzuki; não precisa comprar novamente.": "注文を保存しました。Suzukiをお待ちください。再購入は不要です。",
+  "Não foi possível consultar o pedido. Tente novamente.": "注文を確認できませんでした。再試行してください。"
 }

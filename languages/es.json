@@ -828,7 +828,7 @@
   "Consulte seus saldos no": "Consulte sus saldos en el",
   "Convite não encontrado.": "Invitación no encontrada.",
   "Copiar Pix copia e cola": "Copiar Pix copia y cola",
-  "Corações insuficientes.": "Cuerdos insuficientes.",
+  "Corações insuficientes.": "Corazones insuficientes.",
   "Escolha alguém da turma": "Elige a alguien de la clase",
   "Escolha um item válido.": "Seleccione un elemento válido.",
   "Ex.: 123456789012345678": "Ex.: 123456789012345675",
@@ -2147,5 +2147,15 @@
   "Efeito Corações Neon com centro transparente": "Efecto Corazones Neón con centro transparente",
   "Para o card inteiro": "Para toda la tarjeta",
   "Moldura do ícone": "Marco del icono",
-  "Moldura do card": "Marco de la tarjeta"
+  "Moldura do card": "Marco de la tarjeta",
+  "Ativar": "Activar",
+  "Seus Corações": "Tus Corazones",
+  "Aguarde a Suzuki carregar a atualização.": "Espera a que Suzuki cargue la actualización.",
+  "Escolha uma moldura para ativar no seu perfil.": "Elige un marco para activar en tu perfil.",
+  "Compra concluída! Agora você pode ativar.": "¡Compra completada! Ya puedes activarlo.",
+  "Moldura ativada. A anterior da mesma categoria foi desativada.": "Marco activado. El anterior de la misma categoría fue desactivado.",
+  "Compre essa moldura antes de ativar.": "Compra este marco antes de activarlo.",
+  "A Suzuki está confirmando seu pedido…": "Suzuki está confirmando tu pedido…",
+  "Pedido guardado. Aguarde a Suzuki; não precisa comprar novamente.": "Pedido guardado. Espera a Suzuki; no hace falta comprar otra vez.",
+  "Não foi possível consultar o pedido. Tente novamente.": "No se pudo consultar el pedido. Inténtalo de nuevo."
 }

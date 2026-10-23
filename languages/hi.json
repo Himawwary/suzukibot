@@ -708,7 +708,7 @@
   "Consulte seus saldos no": "अपने बंधन को देखें।",
   "Convite não encontrado.": "कोई आमंत्रण नहीं मिला।",
   "Copiar Pix copia e cola": "Pix Copy और कोला का कॉपी करें",
-  "Corações insuficientes.": "दिल की कमी है।",
+  "Corações insuficientes.": "पर्याप्त दिल नहीं हैं।",
   "Escolha alguém da turma": "किसी को चुनना है समूह में",
   "Escolha um item válido.": "एक वैध आइटम चुनें।",
   "Ex.: 123456789012345678": "उदाहरण: 123456789012345675",
@@ -2147,5 +2147,15 @@
   "Efeito Corações Neon com centro transparente": "पारदर्शी केंद्र वाला नियॉन दिल प्रभाव",
   "Para o card inteiro": "पूरे कार्ड के लिए",
   "Moldura do ícone": "आइकन फ़्रेम",
-  "Moldura do card": "कार्ड फ़्रेम"
+  "Moldura do card": "कार्ड फ़्रेम",
+  "Ativar": "सक्रिय करें",
+  "Seus Corações": "आपके दिल",
+  "Aguarde a Suzuki carregar a atualização.": "Suzuki के अपडेट लोड करने तक प्रतीक्षा करें।",
+  "Escolha uma moldura para ativar no seu perfil.": "अपनी प्रोफ़ाइल पर सक्रिय करने के लिए फ़्रेम चुनें।",
+  "Compra concluída! Agora você pode ativar.": "खरीद पूरी हुई! अब आप इसे सक्रिय कर सकते हैं।",
+  "Moldura ativada. A anterior da mesma categoria foi desativada.": "फ़्रेम सक्रिय हुआ। इसी श्रेणी का पिछला फ़्रेम निष्क्रिय हो गया।",
+  "Compre essa moldura antes de ativar.": "सक्रिय करने से पहले यह फ़्रेम खरीदें।",
+  "A Suzuki está confirmando seu pedido…": "Suzuki आपके आदेश की पुष्टि कर रही है…",
+  "Pedido guardado. Aguarde a Suzuki; não precisa comprar novamente.": "आदेश सहेजा गया। प्रतीक्षा करें; फिर से खरीदने की ज़रूरत नहीं है।",
+  "Não foi possível consultar o pedido. Tente novamente.": "आदेश नहीं जाँचा जा सका। फिर प्रयास करें।"
 }
