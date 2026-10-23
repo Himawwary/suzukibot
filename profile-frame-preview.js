@@ -1,7 +1,8 @@
 (()=>{'use strict';
 const dialog=document.querySelector('[data-frame-dialog]');if(!dialog)return;
 const canvas=dialog.querySelector('canvas'),ctx=canvas.getContext('2d'),loading=dialog.querySelector('[data-frame-loading]'),error=dialog.querySelector('[data-frame-failure]');
-let opener=null,version=0;const cache=new Map();
+let opener=null,version=0,currentCard=null,currentEffect=null;
+const iconToggle=dialog.querySelector("[data-preview-icon]"),effectToggle=dialog.querySelector("[data-preview-effect]");const cache=new Map();
 function picture(src){if(!cache.has(src))cache.set(src,new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=()=>{cache.delete(src);reject(Error('image'));};im.src=src;}));return cache.get(src);}
 function cover(c,im,x,y,w,h){const scale=Math.max(w/im.width,h/im.height),sw=w/scale,sh=h/scale;c.drawImage(im,(im.width-sw)/2,(im.height-sh)/2,sw,sh,x,y,w,h);}
 const openings=new Map();
@@ -16,20 +17,28 @@ function opening(frame){
  const mask=pen.createImageData(w,h);for(let i=0;i<tail;i++)mask.data[queue[i]*4+3]=255;pen.clearRect(0,0,w,h);pen.putImageData(mask,0,0);
  const value={mask:c,left,top,width:right-left+1,height:bottom-top+1};openings.set(frame.src,value);return value;
 }
-async function preview(card){
+function border(source){
+ const w=1080,h=795,sw=source.width,sh=source.height,scale=Math.min(w/sw,h/sh)*.58,sx=Math.round(sw*.22),upper=Math.round(sh*.58),lower=Math.round(sh*.76),dx=Math.round(sx*scale),top=Math.round(upper*scale),bottom=Math.round((sh-lower)*scale);
+ const xs=[0,sx,sw-sx,sw],ys=[0,upper,lower,sh],tx=[0,dx,w-dx,w],ty=[0,top,h-bottom,h];
+ for(let y=0;y<3;y++)for(let x=0;x<3;x++)ctx.drawImage(source,xs[x],ys[y],xs[x+1]-xs[x],ys[y+1]-ys[y],tx[x],ty[y],tx[x+1]-tx[x],ty[y+1]-ty[y]);
+}
+async function preview(card,effect=null){
  const ticket=++version;loading.hidden=false;error.hidden=true;canvas.hidden=true;
- dialog.querySelector('[data-frame-name]').textContent=card.querySelector('h4').textContent;
- const price=card.querySelector('[data-frame-price]'),slot=dialog.querySelector('[data-frame-dialog-price]');slot.replaceChildren();if(price)slot.append(price.cloneNode(true));
+ currentCard=card;currentEffect=effect;dialog.querySelector('[data-frame-name]').textContent=(effect||card).querySelector('h4').textContent;
+ const price=(effect||card).querySelector('[data-frame-price]'),slot=dialog.querySelector('[data-frame-dialog-price]');slot.replaceChildren();if(price)slot.append(price.cloneNode(true));
  try{
- const [base,frame,photo]=await Promise.all([picture('assets/icon-decorations/profile-preview-base.webp'),picture(card.querySelector('.icon-decor-frame').src),picture(card.querySelector('.icon-decor-photo').src)]);
+ const [base,frame,photo]=await Promise.all([picture('assets/icon-decorations/profile-preview-base.webp?v=clean2'),picture(card.querySelector('.icon-decor-frame').src),picture(card.querySelector('.icon-decor-photo').src)]);
  if(ticket!==version||!dialog.open)return;
  const hole=opening(frame),layer=document.createElement('canvas');layer.width=frame.width;layer.height=frame.height;const pen=layer.getContext('2d');cover(pen,photo,hole.left,hole.top,hole.width,hole.height);pen.globalCompositeOperation='destination-in';pen.drawImage(hole.mask,0,0);pen.globalCompositeOperation='source-over';pen.drawImage(frame,0,0);
- ctx.clearRect(0,0,1080,795);ctx.drawImage(base,0,0,1080,795);ctx.drawImage(layer,36.5,205,321.2,321.2);
+ ctx.clearRect(0,0,1080,795);ctx.drawImage(base,0,0,1080,795);if(iconToggle.checked)ctx.drawImage(layer,36.5,205,321.2,321.2);else{ctx.save();ctx.beginPath();ctx.arc(197.1,365.6,121.5,0,Math.PI*2);ctx.clip();cover(ctx,photo,75.6,244.1,243,243);ctx.restore();}
  ctx.save();ctx.beginPath();ctx.arc(1014.5,494,38.5,0,Math.PI*2);ctx.clip();ctx.fillStyle='#fffbea';ctx.fillRect(976,455.5,77,77);cover(ctx,photo,976,455.5,77,77);ctx.restore();
+ if(effectToggle.checked){const chosen=effect||document.querySelector('[data-effect-src]');if(chosen){const overlay=await picture(chosen.dataset.effectSrc);if(ticket!==version||!dialog.open)return;ctx.globalCompositeOperation='source-atop';border(overlay);ctx.globalCompositeOperation='source-over';}}
  canvas.hidden=false;loading.hidden=true;
  }catch{if(ticket===version){loading.hidden=true;error.hidden=false;}}
 }
 document.querySelectorAll('[data-frame-preview]').forEach(button=>button.addEventListener('click',()=>{opener=button;dialog.showModal();preview(button.closest('.icon-decor-card'));}));
+document.querySelectorAll('[data-effect-preview]').forEach(button=>button.addEventListener('click',()=>{opener=button;effectToggle.checked=true;dialog.showModal();preview(currentCard||document.querySelector('#enfeites .icon-decor-card'),button.closest('[data-effect-src]'));}));
+[iconToggle,effectToggle].forEach(toggle=>toggle.addEventListener('change',()=>{if(currentCard)preview(currentCard,currentEffect);}));
 dialog.querySelector('[data-frame-close]').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});dialog.addEventListener('close',()=>{version++;opener?.focus();});
 })();
 
