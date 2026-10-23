@@ -2126,5 +2126,12 @@
   "+10 Corações": "+10 Hearts",
   "Receba um gostei do seu parceiro no perfil. Essa recompensa de 10 Corações só pode ser recebida uma vez.": "Receive a profile like from your partner. This 10-Heart reward can only be claimed once.",
   "Call, elogio e abraço rendem 1 Coração cada e liberam novamente após 24 horas. O like do parceiro rende 10 Corações uma única vez. Mensagem solta no servidor não conta.": "Voice time, a compliment and a hug each earn 1 Heart, available again after 24 hours. Your partner’s like earns 10 Hearts only once. A standalone server message does not count.",
-  "Ver": "View"
+  "Ver": "View",
+  "Missão do casal": "Couple’s mission",
+  "+1 Coração extra": "+1 extra Heart",
+  "Complete call, elogio e abraço com seu parceiro no mesmo dia para ganhar 1 Coração extra. O bônus vale uma vez por dia.": "Complete voice time, a compliment and a hug with your partner on the same day to earn 1 extra Heart. This bonus is available once per day.",
+  "Aniversário de casamento": "Wedding anniversary",
+  "+1 por dia · +100 aos 30 dias": "+1 per day · +100 at 30 days",
+  "Ganhe 1 Coração por dia juntos durante os primeiros 30 dias de casamento. No 30º dia, receba também um bônus único de 100 Corações. Depois dos 30 dias, essa recompensa por tempo de casamento termina.": "Earn 1 Heart per day together during the first 30 days of marriage. On day 30, also receive a one-time bonus of 100 Hearts. After 30 days, this marriage-duration reward ends.",
+  "Carinho diário, missão do casal e uma recompensa especial no primeiro mês.": "Daily affection, a couple’s mission and a special first-month reward."
 }
