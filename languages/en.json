@@ -2133,5 +2133,11 @@
   "Aniversário de casamento": "Wedding anniversary",
   "+1 por dia · +100 aos 30 dias": "+1 per day · +100 at 30 days",
   "Ganhe 1 Coração por dia juntos durante os primeiros 30 dias de casamento. No 30º dia, receba também um bônus único de 100 Corações. Depois dos 30 dias, essa recompensa por tempo de casamento termina.": "Earn 1 Heart per day together during the first 30 days of marriage. On day 30, also receive a one-time bonus of 100 Hearts. After 30 days, this marriage-duration reward ends.",
-  "Carinho diário, missão do casal e uma recompensa especial no primeiro mês.": "Daily affection, a couple’s mission and a special first-month reward."
+  "Carinho diário, missão do casal e uma recompensa especial no primeiro mês.": "Daily affection, a couple’s mission and a special first-month reward.",
+  "Beijo no parceiro": "Kiss your partner",
+  "Dê um beijo no seu parceiro usando o comando da Suzuki para ganhar 1 Coração. Essa ação libera novamente após 24 horas.": "Kiss your partner using Suzuki’s command to earn 1 Heart. This action becomes available again after 24 hours.",
+  "Sete dias de carinho": "Seven days of affection",
+  "+5 Corações": "+5 Hearts",
+  "Complete pelo menos uma ação de carinho com seu parceiro por dia durante sete dias seguidos para ganhar 5 Corações extras. Se passar um dia sem completar uma ação, a sequência recomeça.": "Complete at least one affectionate action with your partner every day for seven consecutive days to earn 5 extra Hearts. Missing a day resets the streak.",
+  "Call, elogio, abraço e beijo rendem 1 Coração cada e liberam novamente após 24 horas. O like do parceiro rende 10 Corações uma única vez. Mensagem solta no servidor não conta.": "Voice time, a compliment, a hug and a kiss each earn 1 Heart, available again after 24 hours. Your partner’s like earns 10 Hearts only once. A standalone server message does not count."
 }
