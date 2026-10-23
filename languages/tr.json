@@ -2121,5 +2121,10 @@
   "Exemplo que vale": "Geçerli örnek",
   "Seu parceiro: “Oi, gente!”": "Partneriniz: “Herkese merhaba!”",
   "Você, usando Responder: “Gatinho chegou!”": "Siz, Yanıtla kullanarak: “Gatinho chegou!”",
-  "Mensagem solta no servidor não conta. Cada ação rende 1 Coração e libera novamente após 24 horas.": "Sunucuda bağımsız bir mesaj sayılmaz. Her eylem 1 Kalp verir ve 24 saat sonra yeniden kullanılabilir."
+  "Mensagem solta no servidor não conta. Cada ação rende 1 Coração e libera novamente após 24 horas.": "Sunucuda bağımsız bir mesaj sayılmaz. Her eylem 1 Kalp verir ve 24 saat sonra yeniden kullanılabilir.",
+  "Ganhe 1 Coração por ação diária e 10 Corações pelo like do parceiro, uma única vez.": "Her günlük eylemden 1 Kalp, partnerinizin profil beğenisinden yalnızca bir kez 10 Kalp kazanın.",
+  "+10 Corações": "+10 Kalp",
+  "Receba um gostei do seu parceiro no perfil. Essa recompensa de 10 Corações só pode ser recebida uma vez.": "Partnerinizden profil beğenisi alın. Bu 10 Kalp ödülü yalnızca bir kez alınabilir.",
+  "Call, elogio e abraço rendem 1 Coração cada e liberam novamente após 24 horas. O like do parceiro rende 10 Corações uma única vez. Mensagem solta no servidor não conta.": "Sesli sohbet, iltifat ve sarılma 1’er Kalp verir ve 24 saat sonra yenilenir. Partnerinizin beğenisi yalnızca bir kez 10 Kalp verir. Bağımsız sunucu mesajı sayılmaz.",
+  "Ver": "Gör"
 }

@@ -2121,5 +2121,10 @@
   "Exemplo que vale": "有効な例",
   "Seu parceiro: “Oi, gente!”": "パートナー：「みんな、こんにちは！」",
   "Você, usando Responder: “Gatinho chegou!”": "あなたが返信：「Gatinho chegou!」",
-  "Mensagem solta no servidor não conta. Cada ação rende 1 Coração e libera novamente após 24 horas.": "サーバーに単独で投稿したメッセージは対象外です。各アクションで1ハートを獲得でき、24時間後に再び獲得できます。"
+  "Mensagem solta no servidor não conta. Cada ação rende 1 Coração e libera novamente após 24 horas.": "サーバーに単独で投稿したメッセージは対象外です。各アクションで1ハートを獲得でき、24時間後に再び獲得できます。",
+  "Ganhe 1 Coração por ação diária e 10 Corações pelo like do parceiro, uma única vez.": "毎日の各アクションで1ハート。パートナーからのプロフィールいいねで一度だけ10ハート。",
+  "+10 Corações": "+10ハート",
+  "Receba um gostei do seu parceiro no perfil. Essa recompensa de 10 Corações só pode ser recebida uma vez.": "パートナーからプロフィールにいいねをもらいましょう。この10ハートの報酬は一度だけ獲得できます。",
+  "Call, elogio e abraço rendem 1 Coração cada e liberam novamente após 24 horas. O like do parceiro rende 10 Corações uma única vez. Mensagem solta no servidor não conta.": "通話、ほめる返信、ハグでそれぞれ1ハートを獲得でき、24時間後に再び獲得できます。パートナーのいいねは一度だけ10ハート。単独の投稿は対象外です。",
+  "Ver": "見る"
 }

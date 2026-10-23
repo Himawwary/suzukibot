@@ -2121,5 +2121,10 @@
   "Exemplo que vale": "인정되는 예시",
   "Seu parceiro: “Oi, gente!”": "파트너: “다들 안녕!”",
   "Você, usando Responder: “Gatinho chegou!”": "답장하는 나: “Gatinho chegou!”",
-  "Mensagem solta no servidor não conta. Cada ação rende 1 Coração e libera novamente após 24 horas.": "서버에 따로 보낸 메시지는 인정되지 않아요. 각 행동은 1하트를 주며 24시간 후 다시 받을 수 있어요."
+  "Mensagem solta no servidor não conta. Cada ação rende 1 Coração e libera novamente após 24 horas.": "서버에 따로 보낸 메시지는 인정되지 않아요. 각 행동은 1하트를 주며 24시간 후 다시 받을 수 있어요.",
+  "Ganhe 1 Coração por ação diária e 10 Corações pelo like do parceiro, uma única vez.": "일일 행동마다 1하트, 파트너의 프로필 좋아요로 한 번만 10하트를 받아요.",
+  "+10 Corações": "+10 하트",
+  "Receba um gostei do seu parceiro no perfil. Essa recompensa de 10 Corações só pode ser recebida uma vez.": "파트너에게 프로필 좋아요를 받으세요. 이 10하트 보상은 한 번만 받을 수 있어요.",
+  "Call, elogio e abraço rendem 1 Coração cada e liberam novamente após 24 horas. O like do parceiro rende 10 Corações uma única vez. Mensagem solta no servidor não conta.": "통화, 칭찬 답장, 포옹은 각각 1하트를 주며 24시간 후 다시 받을 수 있어요. 파트너의 좋아요는 한 번만 10하트를 줘요. 따로 보낸 메시지는 인정되지 않아요.",
+  "Ver": "보기"
 }

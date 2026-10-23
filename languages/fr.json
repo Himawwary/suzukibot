@@ -2121,5 +2121,10 @@
   "Exemplo que vale": "Exemple valide",
   "Seu parceiro: “Oi, gente!”": "Votre partenaire : « Salut tout le monde ! »",
   "Você, usando Responder: “Gatinho chegou!”": "Vous, en réponse directe : « Gatinho chegou! »",
-  "Mensagem solta no servidor não conta. Cada ação rende 1 Coração e libera novamente após 24 horas.": "Un message isolé sur le serveur ne compte pas. Chaque action rapporte 1 Cœur et redevient disponible après 24 heures."
+  "Mensagem solta no servidor não conta. Cada ação rende 1 Coração e libera novamente após 24 horas.": "Un message isolé sur le serveur ne compte pas. Chaque action rapporte 1 Cœur et redevient disponible après 24 heures.",
+  "Ganhe 1 Coração por ação diária e 10 Corações pelo like do parceiro, uma única vez.": "Gagnez 1 Cœur par action quotidienne et 10 Cœurs pour le like de votre partenaire, une seule fois.",
+  "+10 Corações": "+10 Cœurs",
+  "Receba um gostei do seu parceiro no perfil. Essa recompensa de 10 Corações só pode ser recebida uma vez.": "Recevez un like de votre partenaire sur votre profil. Cette récompense de 10 Cœurs ne peut être reçue qu’une fois.",
+  "Call, elogio e abraço rendem 1 Coração cada e liberam novamente após 24 horas. O like do parceiro rende 10 Corações uma única vez. Mensagem solta no servidor não conta.": "L’appel, le compliment et le câlin rapportent chacun 1 Cœur, à nouveau disponible après 24 heures. Le like du partenaire rapporte 10 Cœurs une seule fois. Un message isolé ne compte pas.",
+  "Ver": "Voir"
 }
