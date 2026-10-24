@@ -24,6 +24,6 @@ async function submit(operation){busy=true;render();const a=access();if(!a){busy
 buttons.forEach(button=>button.addEventListener('click',()=>{if(busy)return;const a=access();if(!a){sessionStorage.setItem('suzukiLoginReturn',location.hash||'#enfeites');location.href='https://suzuki-store.alexmarqueslogin.workers.dev/auth/start?produto=bank_site';return;}
  if(!state?.ready){refresh();return;}submit({key:crypto.randomUUID(),kind:button.dataset.decorAction,category:button.dataset.decorCategory,sku:button.dataset.decorBuy});}));
 async function resume(){await refresh();const a=access();if(!a)return;try{const op=JSON.parse(sessionStorage.getItem(key(a))||'null');if(op&&/^[0-9a-f-]{36}$/.test(op.key)&&['decor_buy','decor_equip'].includes(op.kind)&&['icon','card','xp'].includes(op.category)&&/^[a-z0-9-]{1,64}$/.test(op.sku)){await submit(op);}}catch{status('Não foi possível consultar o pedido. Tente novamente.');}}
-window.addEventListener('suzuki-account',resume);window.addEventListener('suzuki-i18n-ready',render);resume();
+window.addEventListener('suzuki-account',resume);window.addEventListener('suzuki-i18n-ready',render);window.addEventListener('suzuki-language',render);resume();
 })();
 
