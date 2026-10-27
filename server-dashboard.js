@@ -152,7 +152,7 @@ for(const r of data.automations?.reactions||[]){const row=node('article',undefin
 function renderJoinRoles(){const p=toolPanel();readyNotice(p);const f=toolForm('Cargo ao entrar','A Suzuki entrega os cargos escolhidos aos novos membros, depois da verificação de entrada do Discord. Remover uma regra desliga a entrega para as próximas entradas.');const role=inputField(f,'role','Cargo de entrada',{raw:true,choices:[['','Escolha um cargo'],...(data.roles||[]).map(r=>[r.id,r.name])]});submitTool(f,'Adicionar cargo automático',()=>toolAction('join_role_add',{role:role.value}),capability('join_roles'));f.append(node('p','Escolha cargos de membros, abaixo do cargo da Suzuki e sem permissões de moderação.','help'));p.append(f);
 const list=node('section',undefined,'card');list.append(node('h2','Cargos automáticos'));if(!data.automations?.join_roles.length)list.append(node('p','Nenhum cargo automático configurado.','help'));for(const rid of data.automations?.join_roles||[]){const row=node('article',undefined,'rule-row');row.append(raw('strong',data.roles.find(r=>r.id===rid)?.name||rid),button('Remover',()=>toolAction('join_role_remove',{role:rid})));list.append(row)}p.append(list)}
 function renderEventChannels(){const p=toolPanel();readyNotice(p);const f=toolForm('Mensagens e calls','Escolha um canal para cada acontecimento. Nenhum canal desativa somente aquele registro.');const inputs={};for(const [key,label]of [['message_edit','Mensagem editada'],['message_delete','Mensagem apagada'],['voice_join','Entrou na call'],['voice_leave','Saiu da call'],['voice_move','Mudou de call']])inputs[key]=toolChannel(f,key,label,data.automations?.logs[key]);f.append(node('p','O conteúdo anterior só aparece quando estava disponível no cache da Suzuki. Mensagens apagadas em lote geram um resumo.','help'));submitTool(f,'Salvar canais de registro',()=>toolAction('event_channels',{words:JSON.stringify(Object.fromEntries(Object.entries(inputs).map(([k,e])=>[k,e.value||null])))}),capability('logs'));p.append(f)}
-function renderSpecial(){({overview:renderOverview,reactions:renderReactions,join_roles:renderJoinRoles,event_channels:renderEventChannels,creator_shop:renderCreatorShop,reaction_roles:renderReactionRoles,embed_builder:renderEmbedBuilder,welcomer:renderWelcomer})[section]()}
+function renderSpecial(){({overview:renderOverview,reactions:renderReactions,join_roles:renderJoinRoles,event_channels:renderEventChannels,creator_shop:renderCreatorShop,reaction_roles:renderReactionRoles,embed_builder:renderEmbedBuilder,welcomer:renderWelcomer,tickets:renderCommunityPanels,colors:renderCommunityPanels,staff_form:renderCommunityPanels})[section]()}
 
 function capture(){if(!data)return;
 if(section==='xp'&&data.xp_system_version===1){data.settings.xp_rewards=[...form.querySelectorAll('.xp-reward-row')].map(row=>({level:Number(row.querySelector('[data-xp-level]').value),role:row.querySelector('[data-xp-role]').value}));}
@@ -383,6 +383,60 @@ window.addEventListener('beforeunload',event=>{if([...welcomerDrafts.values()].s
 
 const serverNav=document.querySelector('nav[aria-label="Configurações do servidor"]');if(serverNav&&!serverNav.querySelector('[data-section="language"]')){const b=node('button','Idioma');b.type='button';b.dataset.section='language';serverNav.prepend(b)}
 if(serverNav)for(const [id,label]of [['xp','XP e Níveis'],['roles','Cargos'],['nicknames','Apelidos'],['cleanup','Limpeza de mensagens'],['channels','Configurar canais'],['cases','Casos e advertências'],['words','Bloqueador de palavras'],['avatar','Trocas de avatar']])if(!serverNav.querySelector('[data-section="'+id+'"]')){const b=node('button',label);b.type='button';b.dataset.section=id;serverNav.append(b)}
+specialSections.push('tickets','colors','staff_form');
+Object.assign(labels,{tickets:'Atendimento e tickets',colors:'Paleta de cores',staff_form:'Seja da equipe'});
+const communityDrafts=new Map();
+function renderCommunityPanels(){
+ const panel=toolPanel(),kind={tickets:'tickets',colors:'colors',staff_form:'staff'}[section];
+ if(data.community_panels_version!==1){panel.append(node('p','Reinicie a Suzuki para ativar os novos painéis.','tool-notice'));return}
+ const key=data.guild.id+':'+kind;
+ if(!communityDrafts.has(key))communityDrafts.set(key,JSON.parse(JSON.stringify(data.community_panels[kind])));
+ const draft=communityDrafts.get(key),allowed=capability('settings');
+ const titles={tickets:'Seu cantinho de atendimento',colors:'Paleta de cores da Suzuki',staff:'Seja da equipe'};
+ const descriptions={tickets:'Crie atendimentos privados com os botões Atender, Painel administrativo, Notificar atendente e Fechar. O fechamento preserva o histórico.',colors:'Escolha cargos de cor sem permissões ou crie a paleta pronta da Suzuki. Cada pessoa escolhe uma cor pelo menu.',staff:'Um modelo pronto com banner da Suzuki e embed amarelo-claro. Basta preencher o nome da equipe e o canal.'};
+ const f=toolForm(titles[kind],descriptions[kind]);f.classList.add('community-panel-editor');
+ const channel=toolChannel(f,'community_channel','Canal do painel',draft.channel);channel.required=true;channel.onchange=()=>draft.channel=channel.value;
+ let name,category,roles;
+ if(kind==='staff'){
+  name=inputField(f,'community_name','Nome da equipe',{max:80,value:draft.name||'Equipe'});name.oninput=()=>{draft.name=name.value;preview()};
+ }else{
+  if(kind==='tickets'){
+   category=inputField(f,'community_category','Categoria dos atendimentos (opcional)',{required:false,raw:true,value:draft.category||'',choices:[['','Criar sem categoria'],...(data.ticket_categories||[]).map(c=>[c.id,c.name])]});category.onchange=()=>draft.category=category.value;
+  }
+  const box=node('fieldset',undefined,'card community-role-picker');box.append(node('legend',kind==='colors'?'Cargos disponíveis para escolher':'Equipe de atendimento (opcional)'));
+  roles=node('div',undefined,'chips');const list=kind==='colors'?data.color_roles||[]:data.roles||[];
+  for(const role of list){const label=node('label',undefined,'chip'),input=node('input');input.type='checkbox';input.value=role.id;input.checked=(draft.roles||[]).includes(role.id);input.onchange=()=>{draft.roles=[...roles.querySelectorAll('input:checked')].map(i=>i.value)};label.append(input,raw('span',role.name));roles.append(label)}
+  if(!list.length)roles.append(node('p',kind==='colors'?'Ainda não há cargos de cor seguros. Use Criar paleta pronta.':'Sem cargos disponíveis. O dono do servidor e administradores poderão atender.','help'));
+  box.append(roles);f.append(box);
+ }
+ const actions=node('div',undefined,'community-panel-actions');
+ const submit=button(kind==='staff'?'Publicar modelo':'Salvar configuração',async()=>{
+  if(!f.reportValidity())return;
+  const payload={revision:data.community_panels.revision,channel:channel.value,...(kind==='staff'?{name:name.value.trim()}:{roles:draft.roles||[]}),...(kind==='tickets'?{category:category.value||null}:{})};
+  const ok=await toolAction({tickets:'tickets_save',colors:'colors_save',staff:'staff_publish'}[kind],{words:JSON.stringify(payload)});
+  if(ok){communityDrafts.delete(key);renderCommunityPanels()}
+ });submit.disabled=!allowed;actions.append(submit);
+ if(kind!=='staff'){
+  const publish=button('Publicar painel',()=>toolAction('community_publish',{scope:kind}));publish.disabled=!allowed||!data.community_panels[kind].channel;actions.append(publish);
+ }
+ if(kind==='colors'){
+  const create=button('Criar paleta pronta',async()=>{if(!channel.value){f.reportValidity();return}const ok=await toolAction('colors_create',{channel:channel.value});if(ok){communityDrafts.delete(key);renderCommunityPanels()}});
+  create.disabled=!allowed||Boolean(data.community_panels.colors.roles.length);actions.append(create);
+ }
+ f.append(actions,node('p','Nada é publicado ao abrir esta página. Use o botão para confirmar a publicação.','help'));panel.append(f);
+ const previewBox=node('section',undefined,'card community-panel-preview');previewBox.append(node('h2','Prévia do painel'));const card=node('article',undefined,'community-discord-embed');previewBox.append(card);panel.append(previewBox);
+ function preview(){
+  card.replaceChildren(node('strong',titles[kind]));
+  card.append(node('p',kind==='staff'?'Quer fazer parte da nossa história? Respeito, colaboração e responsabilidade fazem parte da equipe.':descriptions[kind]));
+  if(kind==='staff')card.append(raw('p',name?.value||draft.name||'Equipe'));
+  const img=node('img');img.src='https://himawwary.github.io/suzukibot/assets/suzuki-community-banner.png';img.alt='Banner da Suzuki';img.className='community-banner';card.append(img);
+  const row=node('div',undefined,'community-preview-buttons');
+  for(const text of kind==='tickets'?['💗 Atender','🌸 Painel administrativo','🌷 Notificar atendente','🎀 Fechar']:kind==='staff'?['💗 Quero participar']:['💗 Escolha a cor do seu nome'])row.append(node('span',text));
+  card.append(row);
+ }
+ preview();
+}
+
 for(const id of [...specialSections].reverse()){const b=node('button',labels[id]);b.type='button';b.dataset.section=id;serverNav?.prepend(b)}
 for(const b of document.querySelectorAll('[data-section]'))b.onclick=()=>{capture();section=b.dataset.section;render()};form.oninput=()=>changed(true);form.onsubmit=e=>e.preventDefault();save.onclick=()=>{capture();if(form.reportValidity())operation('guild_save',{guild:data.guild.id,revision:data.settings.revision,settings:data.settings})};discard.onclick=()=>operation('guild_read',{guild:data.guild.id});selector.onchange=()=>{if(dirty&&!confirm('Descartar as alterações antes de trocar de servidor?')){selector.value=data.guild.id;return}if(selector.value)operation('guild_read',{guild:selector.value})};window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue=''}});
 (async()=>{const pending=stored(pendingKey,true);if(pending){try{busy=true;const r=await poll(pending.id);if(pending.kind!=='guild_music')apply(pending.kind,r);else status.textContent=r.message}catch(e){status.textContent=e.message;if(sessionStorage.getItem(pendingKey))return}finally{busy=false}}if(data){changed(false);return}const previous=stored(preferenceKey);if(previous?.guild&&/^[0-9]{17,20}$/.test(previous.guild)){if(await operation('guild_read',{guild:previous.guild}))return;if(sessionStorage.getItem(pendingKey))return;try{localStorage.removeItem(preferenceKey)}catch{}}await operation('guild_list',{})})();
