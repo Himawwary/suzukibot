@@ -57,7 +57,7 @@
   if(code==='pt-BR'||catalog[code])return;
   if(loading.has(code))return loading.get(code);
   const read=path=>fetch(new URL(path,base),{credentials:'omit',cache:'no-cache'}).then(response=>{if(!response.ok)throw Error('Catálogo indisponível');return response.json()});
-  const sources=[read('languages/'+code+'.json?v=20261021-complete')];if(document.getElementById('server-console'))sources.push(read('server-languages/'+code+'.json?v=roles-embeds-1').catch(()=>({})),read('xp-languages/'+code+'.json?v=xp-1').catch(()=>({})));
+  const sources=[read('languages/'+code+'.json?v=20261021-complete')];if(document.getElementById('server-console'))sources.push(read('server-languages/'+code+'.json?v=welcomer-1').catch(()=>({})),read('server-welcomer-languages/'+code+'.json?v=welcomer-1').catch(()=>({})),read('xp-languages/'+code+'.json?v=xp-1').catch(()=>({})));
   const job=Promise.all(sources).then(values=>Object.assign({},...values)).then(value=>{catalog[code]=value;ready=true;fragments=null;apply();window.dispatchEvent(new CustomEvent('suzuki-i18n-ready',{detail:{language:code}}))}).catch(()=>{apply()}).finally(()=>loading.delete(code));loading.set(code,job);return job;
  }
  loadCatalog(language);

@@ -152,7 +152,7 @@ for(const r of data.automations?.reactions||[]){const row=node('article',undefin
 function renderJoinRoles(){const p=toolPanel();readyNotice(p);const f=toolForm('Cargo ao entrar','A Suzuki entrega os cargos escolhidos aos novos membros, depois da verificação de entrada do Discord. Remover uma regra desliga a entrega para as próximas entradas.');const role=inputField(f,'role','Cargo de entrada',{raw:true,choices:[['','Escolha um cargo'],...(data.roles||[]).map(r=>[r.id,r.name])]});submitTool(f,'Adicionar cargo automático',()=>toolAction('join_role_add',{role:role.value}),capability('join_roles'));f.append(node('p','Escolha cargos de membros, abaixo do cargo da Suzuki e sem permissões de moderação.','help'));p.append(f);
 const list=node('section',undefined,'card');list.append(node('h2','Cargos automáticos'));if(!data.automations?.join_roles.length)list.append(node('p','Nenhum cargo automático configurado.','help'));for(const rid of data.automations?.join_roles||[]){const row=node('article',undefined,'rule-row');row.append(raw('strong',data.roles.find(r=>r.id===rid)?.name||rid),button('Remover',()=>toolAction('join_role_remove',{role:rid})));list.append(row)}p.append(list)}
 function renderEventChannels(){const p=toolPanel();readyNotice(p);const f=toolForm('Mensagens e calls','Escolha um canal para cada acontecimento. Nenhum canal desativa somente aquele registro.');const inputs={};for(const [key,label]of [['message_edit','Mensagem editada'],['message_delete','Mensagem apagada'],['voice_join','Entrou na call'],['voice_leave','Saiu da call'],['voice_move','Mudou de call']])inputs[key]=toolChannel(f,key,label,data.automations?.logs[key]);f.append(node('p','O conteúdo anterior só aparece quando estava disponível no cache da Suzuki. Mensagens apagadas em lote geram um resumo.','help'));submitTool(f,'Salvar canais de registro',()=>toolAction('event_channels',{words:JSON.stringify(Object.fromEntries(Object.entries(inputs).map(([k,e])=>[k,e.value||null])))}),capability('logs'));p.append(f)}
-function renderSpecial(){({overview:renderOverview,reactions:renderReactions,join_roles:renderJoinRoles,event_channels:renderEventChannels,creator_shop:renderCreatorShop,reaction_roles:renderReactionRoles,embed_builder:renderEmbedBuilder})[section]()}
+function renderSpecial(){({overview:renderOverview,reactions:renderReactions,join_roles:renderJoinRoles,event_channels:renderEventChannels,creator_shop:renderCreatorShop,reaction_roles:renderReactionRoles,embed_builder:renderEmbedBuilder,welcomer:renderWelcomer})[section]()}
 
 function capture(){if(!data)return;
 if(section==='xp'&&data.xp_system_version===1){data.settings.xp_rewards=[...form.querySelectorAll('.xp-reward-row')].map(row=>({level:Number(row.querySelector('[data-xp-level]').value),role:row.querySelector('[data-xp-role]').value}));}
@@ -317,6 +317,69 @@ async function refreshSetup(){
  }catch{}finally{setupChecking=false}
 }
 setInterval(refreshSetup,20000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshSetup()});chooseServer.addEventListener('click',clearSetup);
+
+// Entry/exit drafts stay in memory per guild. Neither preview nor language
+// changes save a draft or publish a real announcement.
+specialSections.push('welcomer');labels.welcomer='Entrada e saída';
+const welcomerDrafts=new Map();let welcomerTab='join';
+const welcomerKinds={join:'Entrada',leave:'Saída',ban:'Banimento',dm:'Boas-vindas no privado'};
+function welcomerDraft(){const id=data.guild.id;if(!welcomerDrafts.has(id))welcomerDrafts.set(id,{value:JSON.parse(JSON.stringify(data.welcomer)),dirty:false});return welcomerDrafts.get(id)}
+function renderWelcomer(){
+ const panel=toolPanel();
+ if(!data.welcomer_version||!data.welcomer){panel.append(node('p','Reinicie a Suzuki para ativar entrada e saída neste painel.','tool-notice'));return}
+ const state=welcomerDraft(),cfg=state.value,kind=welcomerTab,item=cfg[kind];
+ const editor=toolForm('Entrada e saída','Personalize entradas, saídas, banimentos e boas-vindas no privado. Tudo começa desligado.');
+ const allowed=capability('settings');
+ function mark(){state.dirty=true;notice.textContent='Você tem alterações para salvar.';preview()}
+ function check(parent,label,obj,key){const wrap=node('label',undefined,'toggle'),input=node('input');input.type='checkbox';input.checked=obj[key];input.disabled=!allowed;input.onchange=()=>{obj[key]=input.checked;mark()};wrap.append(input,node('span',label));parent.append(wrap);return input}
+ check(editor,'Ativar entrada e saída',cfg,'enabled');check(editor,'Ignorar bots',cfg,'ignore_bots');
+ const tabs=node('div',undefined,'welcomer-tabs');
+ for(const [id,label] of Object.entries(welcomerKinds)){const b=button(label,()=>{welcomerTab=id;renderWelcomer()});b.setAttribute('aria-pressed',String(id===kind));tabs.append(b)}
+ editor.append(tabs);check(editor,'Ativar esta mensagem',item,'enabled');
+ const controls=node('fieldset',undefined,'welcomer-fields');controls.disabled=!allowed;controls.append(node('legend',welcomerKinds[kind]));editor.append(controls);
+ function field(key,label,options={}){const input=inputField(controls,key,label,{required:false,value:item[key],...options});input.oninput=()=>{item[key]=input.type==='number'?Number(input.value):input.value;mark()};return input}
+ if(kind!=='dm'){const channel=toolChannel(controls,'channel','Canal do anúncio',item.channel);channel.onchange=()=>{item.channel=channel.value||null;mark()}}
+ const style=field('style','Formato',{choices:[['text','Texto'],['embed','Embed']]});style.onchange=()=>{item.style=style.value;if(item.style==='text'&&!item.content)item.content=item.description;state.dirty=true;renderWelcomer()};
+ field('delete_after','Apagar depois de (segundos)',{type:'number',min:0,maxNumber:86400});controls.append(node('small','Use 0 para manter a mensagem.','help'));
+ field('content','Texto da mensagem',{area:true,max:1500});
+ if(item.style==='embed'){
+  field('title','Título',{max:200});field('description','Descrição',{area:true,max:3000});field('color','Cor',{type:'color'});
+  field('image','Imagem (URL HTTPS)',{max:1000});field('thumbnail','Miniatura ou avatar',{max:1000});field('footer','Rodapé',{max:300});
+ }
+ if(kind!=='dm')check(controls,'Permitir marcar a pessoa do anúncio',item,'ping');
+ const variables=node('details',undefined,'welcomer-variables');variables.append(node('summary','Variáveis disponíveis'));
+ for(const token of ['{user}','{user.name}','{user.mention}','{user.id}','{user.avatar}','{guild.name}','{guild.id}','{guild.members}','{guild.icon}'])variables.append(raw('code',token));
+ editor.append(variables,node('p','O teste usa sua própria conta e não salva as alterações. O teste no privado é enviado somente para você.','help'));
+ const actions=node('div',undefined,'welcomer-actions'),notice=node('p',state.dirty?'Você tem alterações para salvar.':'Tudo salvo por aqui.','help');
+ const submit=button('Salvar entrada e saída',async()=>{
+  if(dirty){status.textContent='Salve ou descarte suas alterações antes de usar outra ferramenta.';return}
+  if(!editor.reportValidity())return;
+  const id=data.guild.id,words=JSON.stringify(cfg);if(words.length>16000){status.textContent='Reduza o conteúdo total das mensagens antes de salvar.';return}
+  editor.querySelectorAll('input,select,textarea,button').forEach(e=>e.disabled=true);
+  const ok=await operation('guild_action',{guild:id,action:'welcomer_save',words});
+  if(ok){welcomerDrafts.delete(id);if(data.guild.id===id)render()}
+  else render();
+ },'primary');submit.disabled=!allowed;
+ const test=button('Enviar teste',async()=>{if(!editor.reportValidity())return;await toolAction('welcomer_test',{words:JSON.stringify({kind,config:cfg})})});test.disabled=!allowed;
+ const discardDraft=button('Descartar rascunho',()=>{welcomerDrafts.delete(data.guild.id);renderWelcomer()});
+ actions.append(submit,test,discardDraft);editor.append(actions,notice);
+ editor.onsubmit=event=>event.preventDefault();
+ const previewBox=node('section',undefined,'card welcomer-preview');previewBox.append(node('h2','Prévia da mensagem'));const previewBody=raw('div');previewBox.append(previewBody);
+ const replacement={user:data.actor_name||'Você','user.name':data.actor_name||'Você','user.mention':'@'+(data.actor_name||'Você'),'user.id':data.actor||'',
+  'user.avatar':data.actor_avatar||'',guild:data.guild.name,'guild.name':data.guild.name,'guild.id':data.guild.id,'guild.members':String(data.guild.members||0),'guild.icon':data.guild.icon||''};
+ function replace(text){return String(text||'').replace(/\{([^{}]+)\}/g,(all,key)=>replacement[key]??all)}
+ function image(value,cls){let url;try{url=new URL(replace(value))}catch{return null}if(url.protocol!=='https:')return null;const img=raw('img',undefined,cls);img.src=url.href;img.alt='';img.referrerPolicy='no-referrer';return img}
+ function preview(){previewBody.replaceChildren();const body=raw('article',undefined,'welcomer-discord-message');body.append(raw('strong','Suzuki BOT'));
+  if(item.content)body.append(raw('p',replace(item.content)));
+  if(item.style==='embed'){const embed=raw('div',undefined,'welcomer-embed');embed.style.borderLeftColor=/^#[0-9a-f]{6}$/i.test(item.color)?item.color:'#ff69b4';
+   const thumb=image(item.thumbnail,'welcomer-thumb');if(thumb)embed.append(thumb);
+   if(item.title)embed.append(raw('h3',replace(item.title)));if(item.description)embed.append(raw('p',replace(item.description)));
+   const banner=image(item.image,'welcomer-image');if(banner)embed.append(banner);if(item.footer)embed.append(raw('small',replace(item.footer)));body.append(embed)}
+  previewBody.append(body)
+ }
+ const grid=node('div',undefined,'welcomer-layout');grid.append(editor,previewBox);panel.append(grid);preview();
+}
+window.addEventListener('beforeunload',event=>{if([...welcomerDrafts.values()].some(d=>d.dirty)){event.preventDefault();event.returnValue=''}});
 
 const serverNav=document.querySelector('nav[aria-label="Configurações do servidor"]');if(serverNav&&!serverNav.querySelector('[data-section="language"]')){const b=node('button','Idioma');b.type='button';b.dataset.section='language';serverNav.prepend(b)}
 if(serverNav)for(const [id,label]of [['xp','XP e Níveis'],['roles','Cargos'],['nicknames','Apelidos'],['cleanup','Limpeza de mensagens'],['channels','Configurar canais'],['cases','Casos e advertências'],['words','Bloqueador de palavras'],['avatar','Trocas de avatar']])if(!serverNav.querySelector('[data-section="'+id+'"]')){const b=node('button',label);b.type='button';b.dataset.section=id;serverNav.append(b)}
