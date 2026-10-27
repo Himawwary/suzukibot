@@ -1,0 +1,30 @@
+#comece.hero{min-height:610px;grid-template-columns:1.15fr .85fr;gap:42px;padding:48px 0 34px}
+#comece h1{font-size:clamp(46px,5.4vw,76px);line-height:1.06;letter-spacing:-1.6px;text-shadow:none;color:#315f3b;margin:16px 0 20px}
+#comece h1 span{color:#ef328f;text-shadow:2px 3px 0 #d7f4a7}
+#comece>div:first-child>p{font-size:19px;font-weight:650;line-height:1.65;color:#526653;max-width:560px;margin-bottom:24px}
+#comece .tag{background:#fff1f8;border:1px solid #f5b6d5;color:#c9357e;box-shadow:none}
+#comece .buttons{gap:12px;flex-wrap:wrap}
+#comece .buttons .btn{border-radius:17px;box-shadow:0 4px 0 #b16a9440;border-width:2px;font-size:17px;padding:14px 19px}
+#comece .buttons .btn.green{background:#f42e98;border-color:#d71b7d;color:#fff7fd;box-shadow:0 5px 0 #b71a6940}
+#comece .buttons .btn:not(.green){background:#efffdb;border-color:#a5cf83;color:#315f3b}
+#comece .buttons .btn .draw-icon{width:24px;height:24px}
+#comece .suzuki-wrap{padding-bottom:30px}
+#comece .suzuki-card{width:min(390px,37vw);aspect-ratio:1;padding:9px;border:3px solid #b6e68b;border-radius:50%;background:linear-gradient(145deg,#ffd4e9,#edffd9);box-shadow:0 16px 50px #dc52952b,0 0 0 10px #ffebf470;transform:none;position:relative}
+#comece .suzuki-card>img{border:0;border-radius:50%;aspect-ratio:1;object-fit:cover}
+#comece .suzuki-card>div{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);white-space:nowrap;border:2px solid #b6dd94;border-radius:30px;background:#fff8f0;padding:9px 18px!important;box-shadow:0 5px 18px #b3487a15;font-size:18px!important}
+#comece .suzuki-card>div svg{width:19px;height:19px}
+#comece .floating-photo{width:64px;height:64px;border:3px solid #ffa5d0;border-radius:50%;box-shadow:0 6px 15px #b2507c26}
+#comece .sticker{box-shadow:0 4px 12px #c7739b20;border-width:2px;font-size:15px}
+#comece .stickers{margin-top:20px;opacity:.9}
+#comece .sticker2{font-size:13px;border-width:1px;box-shadow:none}
+.hero-community-stat{display:flex;align-items:center;gap:16px;margin-top:27px;padding:16px 0 0;border-top:1px solid #a5cf8355;max-width:540px}
+.hero-community-count{font:800 clamp(38px,5vw,54px)/1 Fredoka,system-ui;color:#df2d8a;letter-spacing:-1px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.hero-community-copy{display:flex;flex-direction:column;gap:5px;min-width:0}
+.hero-community-copy strong{font:700 18px/1.3 Fredoka,system-ui;color:#35663f}
+.hero-community-copy small{font:600 12px/1.45 Nunito,system-ui;color:#657166}
+.hero-community-row{display:flex;align-items:center;gap:12px;margin-top:12px}
+.hero-community-row a{font:800 12px Nunito,system-ui;color:#a63773;text-underline-offset:3px}
+.hero-community-avatars{display:flex;padding-left:5px}
+.hero-community-avatars img,.hero-community-avatars span{display:grid;place-items:center;width:30px;height:30px;margin-left:-5px;object-fit:cover;border:2px solid #fff9ef;border-radius:50%;background:#cef2a6;color:#47633d;font:800 12px system-ui}
+@media(max-width:850px){#comece.hero{gap:22px;grid-template-columns:1fr;padding-top:32px}#comece .suzuki-card{width:min(330px,72vw)}#comece .suzuki-wrap{max-width:440px;margin:24px auto 0;width:100%}.hero-community-stat{margin-left:auto;margin-right:auto;justify-content:center;text-align:left}.hero-community-row{justify-content:center}#comece h1{font-size:clamp(43px,8vw,66px)}}
+@media(max-width:480px){#comece.hero{min-height:0}#comece h1{letter-spacing:-1px;font-size:45px}#comece>div:first-child>p{font-size:16px}#comece .buttons .btn{font-size:14px;padding:12px}.hero-community-copy strong{font-size:16px}.hero-community-stat{gap:12px}.hero-community-count{font-size:44px}#comece .floating-photo{width:52px;height:52px}}
