@@ -49,3 +49,64 @@
 #world{scroll-margin-top:24px}#suzuki-complete-content section:focus{outline:none}
 @media(max-width:850px){#comece.hero{padding-top:32px;gap:24px;min-height:0}#comece h1{font-size:clamp(40px,6.7vw,62px)}.suzuki-intro{text-align:center;padding:25px 22px}.suzuki-intro-grid{grid-template-columns:1fr}.suzuki-intro-bottom{flex-direction:column}.suzuki-intro>p{margin-left:auto;margin-right:auto}}
 @media(prefers-reduced-motion:reduce){#world{scroll-behavior:auto}}
+
+/* Suzuki presentation: airy opening, original pink and green identity. */
+body{background:#fffdfd;color:#30313d}
+body::before{background:radial-gradient(ellipse at 82% 32%,#ffe2ef80,transparent 36%),radial-gradient(ellipse at 4% 65%,#effbdf60,transparent 32%),#fffdfd}
+body::after{display:none}
+body>.float{display:none}
+body nav.suzuki-header{width:min(1240px,calc(100% - 48px));top:0;margin:0 auto;padding:18px 0;background:#fffdfdf2;border:0;border-bottom:1px solid #f1e9ed;border-radius:0;box-shadow:none;gap:20px;backdrop-filter:blur(16px)}
+body .suzuki-header .logo{gap:10px;color:#30313d}
+body .suzuki-header .logo img{width:44px;height:44px;transform:none;border:2px solid #ffd4e5;border-radius:50%;box-shadow:none}
+body .header-brand>span{font:800 25px/1.1 Nunito,system-ui;color:#35313e;letter-spacing:-.7px}
+body .header-brand small,body .header-star{display:none}
+body .suzuki-header .nav-actions{gap:8px}
+body .suzuki-header .nav-actions .lang,body .suzuki-header .menu-toggle,body .suzuki-header .settings-toggle{background:#fff;border:1px solid #eee4e9;border-radius:10px;box-shadow:none;color:#655765;padding:9px 11px;font-size:13px}
+body .site-login{background:#fff!important;color:#4a4050!important;border:1px solid #eae1e8;border-radius:10px;box-shadow:none;font-size:13px;padding:10px 13px}
+body .nav-actions .server-dashboard-button{background:#f2fbdf;border:1px solid #d8eab9;box-shadow:none;border-radius:10px;font:800 13px/1.2 Nunito,system-ui;padding:8px 12px;color:#446037}
+body .server-dashboard-button small,body .server-dashboard-button b{display:none}
+body .server-dashboard-icon{width:23px;height:26px}
+body .suzuki-header .navbtn{background:#fff0f7;color:#c5307f!important;border:1px solid #f7c5dd;box-shadow:none;border-radius:10px;padding:10px 13px;font-size:13px}
+body main{width:min(1180px,calc(100% - 64px))}
+body #comece.hero{grid-template-columns:minmax(0,1.2fr) minmax(0,.85fr);gap:60px;min-height:calc(100svh - 85px);max-height:900px;padding:65px 0 55px;align-items:center}
+body #comece h1{font:900 clamp(42px,4.6vw,64px)/1.12 Nunito,system-ui;letter-spacing:-2px;color:#34313e;text-shadow:none;margin:21px 0 23px;max-width:690px}
+body #comece h1 span{color:#ea328f;text-shadow:none}
+body #comece>div:first-child>p{font:500 18px/1.8 Nunito,system-ui;color:#79717f;max-width:575px;margin:0 0 28px}
+body #comece .tag{padding:6px 12px;border:1px solid #f5c6dd;border-radius:30px;background:#fff0f7;box-shadow:none;color:#cf4387;font-size:13px;font-weight:800}
+body #comece .buttons{gap:13px;margin:0;align-items:stretch}
+body #comece .buttons .btn{border-radius:11px;border:1px solid #e8dce5;font:800 15px Nunito,system-ui;padding:15px 23px;box-shadow:none;justify-content:center;transition:transform .18s,box-shadow .18s}
+body #comece .buttons .btn.green{background:#f13594;color:#fff;border-color:#f13594;box-shadow:0 6px 18px #e82a8424}
+body #comece .buttons .btn:not(.green){background:#f1fbdf;color:#496536;border-color:#d8eabc}
+body #comece .buttons .btn:hover{transform:translateY(-2px);box-shadow:0 7px 18px #ae7c9920}
+body #comece .buttons .draw-icon{width:21px;height:21px}
+body #comece .suzuki-wrap{padding:15px 0;margin:0;isolation:isolate;min-width:0}
+body #comece .suzuki-wrap::before{content:'';position:absolute;inset:-50px;border-radius:50%;background:radial-gradient(circle,#ffcde777,transparent 68%);z-index:-1}
+body #comece .suzuki-card{width:min(420px,100%);padding:0;background:#ffe3ee;border:7px solid #fff;border-radius:50%;box-shadow:0 16px 42px #73426020,0 0 0 2px #e0efcd;transform:rotate(0);overflow:hidden}
+body #comece .suzuki-card>img{width:100%;height:auto;display:block;object-fit:cover;aspect-ratio:1;border:0;border-radius:50%}
+body #comece .suzuki-card>div,body #comece .floating-photo{display:none}
+body #comece .sticker{padding:0;border:0;background:none;box-shadow:none;font-size:0;color:#ef70ae;transform:none;pointer-events:none}
+body #comece .sticker .draw-icon{width:37px;height:37px;filter:none}
+body #comece .s1{top:4%;left:4%;transform:rotate(-12deg)}
+body #comece .s2{top:56%;right:-7%;color:#9bce66;transform:rotate(9deg)}
+body #comece .s3{bottom:2%;left:0;transform:rotate(-8deg)}
+body #comece .stickers{display:none}
+body #comece .hero-community-stat{border:0;margin-top:35px;padding:0}
+body .hero-demo-stats{gap:30px}
+body .hero-demo-stats strong{font:800 25px/1.2 Nunito,system-ui;color:#6d5267}
+body .hero-demo-stats span{font-size:12px;color:#8a7c89;font-weight:700}
+body .hero-demo-label{font-size:10px;font-weight:700;color:#9a8494;margin-top:10px}
+body .hero-community-row{margin-top:11px}
+body .hero-discord-note{color:#7e9272;font-size:11px;font-weight:700}
+body .suzuki-intro{border:0;border-top:1px solid #f0e7ed;background:none;box-shadow:none;border-radius:0;margin:0 0 55px;padding:60px 0 20px;text-align:center}
+body .suzuki-intro>p{margin:0 auto 30px;color:#827280;font-weight:500}
+body .suzuki-intro h2{color:#443344;font:800 clamp(25px,3vw,36px)/1.3 Nunito,system-ui}
+body .suzuki-intro-grid{gap:28px}
+body .suzuki-intro-grid article{background:none;border:0;border-radius:0;box-shadow:none;padding:18px 14px}
+body .suzuki-intro-grid h3{font-family:Nunito,system-ui;font-size:19px;color:#594258}
+body .suzuki-intro-grid p{color:#877886;font-weight:500}
+body .suzuki-intro .suzuki-discover{box-shadow:none;border:1px solid #d9e9c3;border-radius:11px;font:800 15px Nunito,system-ui}
+@media(min-width:1500px){body #comece.hero{min-height:740px}}
+@media(max-width:1000px){body #comece.hero{gap:30px}body #comece h1{font-size:48px}body .suzuki-header .navbtn{display:none}body .suzuki-header .nav-actions{gap:5px}}
+@media(max-width:760px){body nav.suzuki-header{width:calc(100% - 32px);padding:12px 0;gap:10px;flex-wrap:wrap}body .header-brand>span{font-size:22px}body .suzuki-header .nav-actions{margin-left:auto;flex-wrap:wrap;justify-content:flex-end;width:auto}body main{width:calc(100% - 40px)}body #comece.hero{grid-template-columns:1fr;max-height:none;min-height:0;padding:42px 0 45px;gap:34px;text-align:center}body #comece h1{font-size:clamp(38px,7.6vw,52px);letter-spacing:-1.3px;margin:18px auto}body #comece>div:first-child>p{font-size:16px;max-width:540px;margin:0 auto 24px}body #comece .buttons{justify-content:center}body #comece .suzuki-wrap{max-width:310px;margin:auto;width:100%;grid-row:2}body .hero-demo-stats{justify-content:center}body .hero-community-row{justify-content:center}body .suzuki-intro-grid{grid-template-columns:1fr;gap:0}body .suzuki-intro{padding-top:36px}body .server-dashboard-button{min-height:36px}}
+@media(max-width:480px){body nav.suzuki-header{align-items:center}body .suzuki-header .nav-actions{width:100%;margin-top:0;justify-content:space-between;gap:4px}body .suzuki-header .nav-actions .lang{margin:0;max-width:82px}body .nav-actions .server-dashboard-button{font-size:12px;padding:6px 8px}body .suzuki-header .settings-toggle{padding:7px}body .site-login{font-size:12px;padding:9px}body #comece .buttons .btn{font-size:14px;padding:14px 17px}body .hero-demo-stats{gap:25px}body #comece .suzuki-wrap{max-width:255px}body #comece .hero-community-stat{margin-top:25px}}
+@media(prefers-reduced-motion:reduce){body #comece .buttons .btn{transition:none}}
