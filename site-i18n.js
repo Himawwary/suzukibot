@@ -13,9 +13,12 @@
  function translate(source){
   if(typeof source!=='string'||language==='pt-BR'||!ready)return source;
   const key=source.trim();if(/^(?:Suzuki(?: Bot)?|SuzukiPay|Miyu(?: Suzuki)?|suzu|suzukinha|Tani|Taira|Azuna|Azuma|Yamada|Nishi|Watanabe|Sato|Satou|Honda|Rihito)[.!?\s]*$/i.test(key))return source;if(!key||!/[A-Za-zÀ-ÿ]/.test(key)||/^(?:R\$|\$|€)\s*[\d.,\s]+$/.test(key))return source;
+  const map=catalog[language]||{},exact=map[key];
+  const protectedTokens=source.match(/https?:\/\/[^\s<>]+|(?:\/|==)[\p{L}_][\p{L}\p{N}_-]*/giu)||[];
+  if(exact&&protectedTokens.every(token=>exact.includes(token)))return source.replace(key,exact);
   const parts=source.split(/(https?:\/\/[^\s<>]+|(?:\/|==)[\p{L}_][\p{L}\p{N}_-]*(?:[ \t]+(?:canal|voz))?)/giu);
   if(parts.length>1)return parts.map((part,index)=>index%2?part:translate(part)).join('');
-  const map=catalog[language]||{},exact=map[key];if(exact)return source.replace(key,exact);
+
   // Preserve dynamic numbers and account data while translating known UI fragments.
   if(!fragments){const keys=Object.keys(map).filter(k=>k.length>=3&&k.length<120&&!/[<>\n]/.test(k)&&map[k]!==k).sort((a,b)=>b.length-a.length);fragments=keys.length?new RegExp('(?<![\\p{L}\\p{N}_])(?:'+keys.map(escape).join('|')+')(?![\\p{L}\\p{N}_])','gu'):false}
   return fragments?source.replace(fragments,key=>map[key]||key):source;
