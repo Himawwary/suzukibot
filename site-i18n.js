@@ -1,7 +1,7 @@
 (()=>{'use strict';
  const supported={'pt-BR':'PT-BR',en:'English',es:'Español',ja:'日本語',de:'Deutsch',fr:'Français',ko:'한국어',tr:'Türkçe',id:'Bahasa Indonesia',hi:'हिन्दी'};
  const script=document.currentScript,base=new URL('.',script?.src||location.href);
- if(!window.SuzukiLoader&&!document.querySelector('script[data-suzuki-loader]')){const loader=document.createElement('script');loader.dataset.suzukiLoader='';loader.src=new URL('site-loader.js?v=heart-1',base).href;(document.head||document.documentElement).append(loader)}
+ if(!window.SuzukiLoader&&!document.querySelector('script[data-suzuki-loader]')){const loader=document.createElement('script');loader.dataset.suzukiLoader='';loader.src=new URL('site-loader.js?v=heart-2',base).href;(document.head||document.documentElement).append(loader)}
  let language='pt-BR',catalog={},ready=false,scheduled=false,observer;const saved=new WeakMap(),pending=new Set();
  try{const cookie=location.origin==='https://suzuki-store.alexmarqueslogin.workers.dev'?document.cookie.match(/(?:^|;\s*)SuzukiUILanguage=([^;]+)/)?.[1]:null;const preferred=new URL(location.href).searchParams.get('lang')||cookie||localStorage.getItem('suzukiLanguage');if(preferred in supported)language=preferred}catch{}
  let select=document.getElementById('site-language');
