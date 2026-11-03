@@ -27,7 +27,7 @@ async function preview(card,effect=null){
  currentCard=card;currentEffect=effect;dialog.querySelector('[data-frame-name]').textContent=(effect||card).querySelector('h4').textContent;
  const price=(effect||card).querySelector('[data-frame-price]'),slot=dialog.querySelector('[data-frame-dialog-price]');slot.replaceChildren();if(price)slot.append(price.cloneNode(true));
  try{
- const [base,frame,photo]=await Promise.all([picture('assets/beach-profile/profile-preview-base.webp?v=20261103'),picture(card.querySelector('.icon-decor-frame').src),picture(card.querySelector('.icon-decor-photo').src)]);
+ const [base,frame,photo]=await Promise.all([picture('assets/beach-profile/profile-preview-base.webp?v=20261103b'),picture(card.querySelector('.icon-decor-frame').src),picture(card.querySelector('.icon-decor-photo').src)]);
  if(ticket!==version||!dialog.open)return;
  const hole=opening(frame),layer=document.createElement('canvas');layer.width=frame.width;layer.height=frame.height;const pen=layer.getContext('2d');cover(pen,photo,hole.left,hole.top,hole.width,hole.height);pen.globalCompositeOperation='destination-in';pen.drawImage(hole.mask,0,0);pen.globalCompositeOperation='source-over';pen.drawImage(frame,0,0);
  ctx.clearRect(0,0,1080,795);ctx.drawImage(base,0,0,1080,795);if(iconToggle.checked)ctx.drawImage(layer,27.5,141.4,319.6,319.6);else{ctx.save();ctx.beginPath();ctx.arc(187.35,301.2,113.9,0,Math.PI*2);ctx.clip();cover(ctx,photo,73.5,187.3,227.8,227.8);ctx.restore();}
