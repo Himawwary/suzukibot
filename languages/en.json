@@ -621,7 +621,7 @@
   "Não autorizado.": "not authorized.",
   "Origem inválida": "Invalid origin",
   "Relógio Rosinha": "The Rosary Clock",
-  "Resgatar grátis": "Free rescue",
+  "Resgatar grátis": "Claim for free",
   "Suzuki com Tani": "Suzuki with Tani",
   "Um carinho para": "A love for",
   "Valor inválido.": "The Invalid Value.",
@@ -2214,5 +2214,9 @@
   "Ativar em um canal": "Enable in a channel",
   "Consultar os convites": "Check invite totals",
   "Quem configura precisa de Gerenciar Servidor. O Discord nem sempre permite identificar convites; a Suzuki informa quando isso acontecer.": "Setup requires Manage Server. Discord does not always allow invites to be identified; Suzuki tells you when that happens.",
-  "Entrar no servidor oficial ↗": "Join the official server ↗"
+  "Entrar no servidor oficial ↗": "Join the official server ↗",
+  "Ondas da Praia": "Beach Waves",
+  "Praia de Verão": "Summer Beach",
+  "Grátis": "Free",
+  "28 estilos para explorar": "28 styles to explore"
 }

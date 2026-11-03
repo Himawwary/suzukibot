@@ -623,7 +623,7 @@
   "Não autorizado.": "許可されていない。",
   "Origem inválida": "無効出身",
   "Relógio Rosinha": "ピンク時計",
-  "Resgatar grátis": "無料救済",
+  "Resgatar grátis": "無料で受け取る",
   "Suzuki com Tani": "スズキとタニー",
   "Um carinho para": "愛情の為に",
   "Valor inválido.": "無効値。",
@@ -2214,5 +2214,9 @@
   "Ativar em um canal": "チャンネルで有効にする",
   "Consultar os convites": "招待数を確認する",
   "Quem configura precisa de Gerenciar Servidor. O Discord nem sempre permite identificar convites; a Suzuki informa quando isso acontecer.": "設定にはサーバー管理権限が必要です。Discordの仕様で招待元を特定できない場合は、Suzukiがお知らせします。",
-  "Entrar no servidor oficial ↗": "公式サーバーに参加 ↗"
+  "Entrar no servidor oficial ↗": "公式サーバーに参加 ↗",
+  "Ondas da Praia": "ビーチの波",
+  "Praia de Verão": "夏のビーチ",
+  "Grátis": "無料",
+  "28 estilos para explorar": "28種類のスタイル"
 }

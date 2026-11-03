@@ -623,7 +623,7 @@
   "Não autorizado.": "Unzulässig ist.",
   "Origem inválida": "Unwahrscheinliche Herkunft",
   "Relógio Rosinha": "Rosenkunde",
-  "Resgatar grátis": "Rettung kostenlos",
+  "Resgatar grátis": "Kostenlos abholen",
   "Suzuki com Tani": "Suzuki mit Tani",
   "Um carinho para": "Ein Zufall für",
   "Valor inválido.": "Invalid Wert ist.",
@@ -2214,5 +2214,9 @@
   "Ativar em um canal": "In einem Kanal aktivieren",
   "Consultar os convites": "Einladungen nachsehen",
   "Quem configura precisa de Gerenciar Servidor. O Discord nem sempre permite identificar convites; a Suzuki informa quando isso acontecer.": "Zur Einrichtung ist Server verwalten erforderlich. Discord erlaubt nicht immer die Zuordnung einer Einladung; Suzuki weist darauf hin.",
-  "Entrar no servidor oficial ↗": "Dem offiziellen Server beitreten ↗"
+  "Entrar no servidor oficial ↗": "Dem offiziellen Server beitreten ↗",
+  "Ondas da Praia": "Strandwellen",
+  "Praia de Verão": "Sommerstrand",
+  "Grátis": "Kostenlos",
+  "28 estilos para explorar": "28 Stile zum Entdecken"
 }

@@ -390,7 +390,7 @@
   "Origem inválida": "geçersiz kaynak",
   "Relacionamentos": "İlişkiler",
   "Relógio Rosinha": "Kırmızı Saat",
-  "Resgatar grátis": "Ücretsiz kurtarma",
+  "Resgatar grátis": "Ücretsiz al",
   "Suzuki com Tani": "Suzuki ile Tani",
   "Suzuki sorrindo": "Suzuki Gülümseyerek",
   "Um carinho para": "Bir sevgi için",
@@ -2214,5 +2214,9 @@
   "Ativar em um canal": "Bir kanalda etkinleştir",
   "Consultar os convites": "Davetleri kontrol et",
   "Quem configura precisa de Gerenciar Servidor. O Discord nem sempre permite identificar convites; a Suzuki informa quando isso acontecer.": "Kurulum için Sunucuyu Yönet izni gerekir. Discord daveti her zaman belirlemeye izin vermez; Suzuki böyle durumları bildirir.",
-  "Entrar no servidor oficial ↗": "Resmî sunucuya katıl ↗"
+  "Entrar no servidor oficial ↗": "Resmî sunucuya katıl ↗",
+  "Ondas da Praia": "Sahil Dalgaları",
+  "Praia de Verão": "Yaz Plajı",
+  "Grátis": "Ücretsiz",
+  "28 estilos para explorar": "Keşfedilecek 28 stil"
 }
