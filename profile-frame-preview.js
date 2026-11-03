@@ -27,12 +27,12 @@ async function preview(card,effect=null){
  currentCard=card;currentEffect=effect;dialog.querySelector('[data-frame-name]').textContent=(effect||card).querySelector('h4').textContent;
  const price=(effect||card).querySelector('[data-frame-price]'),slot=dialog.querySelector('[data-frame-dialog-price]');slot.replaceChildren();if(price)slot.append(price.cloneNode(true));
  try{
- const [base,frame,photo]=await Promise.all([picture('assets/icon-decorations/profile-preview-base.webp?v=clean2'),picture(card.querySelector('.icon-decor-frame').src),picture(card.querySelector('.icon-decor-photo').src)]);
+ const [base,frame,photo]=await Promise.all([picture('assets/beach-profile/profile-preview-base.webp?v=20261103'),picture(card.querySelector('.icon-decor-frame').src),picture(card.querySelector('.icon-decor-photo').src)]);
  if(ticket!==version||!dialog.open)return;
  const hole=opening(frame),layer=document.createElement('canvas');layer.width=frame.width;layer.height=frame.height;const pen=layer.getContext('2d');cover(pen,photo,hole.left,hole.top,hole.width,hole.height);pen.globalCompositeOperation='destination-in';pen.drawImage(hole.mask,0,0);pen.globalCompositeOperation='source-over';pen.drawImage(frame,0,0);
- ctx.clearRect(0,0,1080,795);ctx.drawImage(base,0,0,1080,795);if(iconToggle.checked)ctx.drawImage(layer,36.5,205,321.2,321.2);else{ctx.save();ctx.beginPath();ctx.arc(197.1,365.6,121.5,0,Math.PI*2);ctx.clip();cover(ctx,photo,75.6,244.1,243,243);ctx.restore();}
- ctx.save();ctx.beginPath();ctx.arc(1014.5,494,38.5,0,Math.PI*2);ctx.clip();ctx.fillStyle='#fffbea';ctx.fillRect(976,455.5,77,77);cover(ctx,photo,976,455.5,77,77);ctx.restore();
- if(effectToggle.checked){const chosen=effect||document.querySelector('[data-effect-src]');if(chosen){const overlay=await picture(chosen.dataset.effectSrc);if(ticket!==version||!dialog.open)return;ctx.globalCompositeOperation='source-atop';border(overlay);ctx.globalCompositeOperation='source-over';}}
+ ctx.clearRect(0,0,1080,795);ctx.drawImage(base,0,0,1080,795);if(iconToggle.checked)ctx.drawImage(layer,27.5,141.4,319.6,319.6);else{ctx.save();ctx.beginPath();ctx.arc(187.35,301.2,113.9,0,Math.PI*2);ctx.clip();cover(ctx,photo,73.5,187.3,227.8,227.8);ctx.restore();}
+ ctx.save();ctx.beginPath();ctx.arc(996.6,463.2,36.4,0,Math.PI*2);ctx.clip();ctx.fillStyle='#fffbea';ctx.fillRect(960.2,426.8,72.8,72.8);cover(ctx,photo,960.2,426.8,72.8,72.8);ctx.restore();
+ if(effectToggle.checked){const chosen=effect||document.querySelector('[data-effect-src]');if(chosen){const overlay=await picture(chosen.dataset.effectSrc);if(ticket!==version||!dialog.open)return;ctx.globalCompositeOperation='source-atop';if(chosen.querySelector('[data-decor-buy]')?.dataset.decorBuy==='praia-verao')ctx.drawImage(overlay,0,0,1080,795);else border(overlay);ctx.globalCompositeOperation='source-over';}}
  canvas.hidden=false;loading.hidden=true;
  }catch{if(ticket===version){loading.hidden=true;error.hidden=false;}}
 }
@@ -41,4 +41,5 @@ document.querySelectorAll('[data-effect-preview]').forEach(button=>button.addEve
 [iconToggle,effectToggle].forEach(toggle=>toggle.addEventListener('change',()=>{if(currentCard)preview(currentCard,currentEffect);}));
 dialog.querySelector('[data-frame-close]').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});dialog.addEventListener('close',()=>{version++;opener?.focus();});
 })();
+
 

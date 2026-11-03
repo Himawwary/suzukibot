@@ -12,7 +12,7 @@ function render(){
  const booster=button.dataset.decorBooster==='true',has=sku==='none'||state?.decor?.[group]?.includes(sku)||booster&&state?.booster,active=!!(state&&state.decor[selected]===sku),amount=Number(button.dataset.decorPrice||0);
  button.disabled=busy||active||!!(a&&state&&!state.ready)||!!(a&&booster&&state&&!state.booster)||!!(a&&category==='xp'&&state&&!state.xp_eligible);
  button.dataset.decorAction=has?'decor_equip':'decor_buy';button.classList.toggle('is-active',active);button.setAttribute('aria-pressed',String(active));
- const label=document.createElement('span');label.textContent=t(active?'Ativada':has?'Ativar':'Comprar');button.replaceChildren(label);
+ const label=document.createElement('span');label.textContent=t(active?'Ativada':has?'Ativar':amount===0?'Resgatar grátis':'Comprar');button.replaceChildren(label);
  if(!has&&amount){const amountBox=document.createElement('span');amountBox.className='decor-buy-price';const icon=document.createElement('img');icon.src=category==='icon'?'docinho-suzuki.webp':'coracoes-suzuki.webp';icon.alt='';icon.width=23;icon.height=23;const number=document.createElement('strong');number.textContent=String(amount);amountBox.append(icon,number);button.append(amountBox);}
  }
 }
@@ -26,4 +26,5 @@ buttons.forEach(button=>button.addEventListener('click',()=>{if(busy)return;cons
 async function resume(){await refresh();const a=access();if(!a)return;try{const op=JSON.parse(sessionStorage.getItem(key(a))||'null');if(op&&/^[0-9a-f-]{36}$/.test(op.key)&&['decor_buy','decor_equip'].includes(op.kind)&&['icon','card','xp'].includes(op.category)&&/^[a-z0-9-]{1,64}$/.test(op.sku)){await submit(op);}}catch{status('Não foi possível consultar o pedido. Tente novamente.');}}
 window.addEventListener('suzuki-account',resume);window.addEventListener('suzuki-i18n-ready',render);window.addEventListener('suzuki-language',render);resume();
 })();
+
 
